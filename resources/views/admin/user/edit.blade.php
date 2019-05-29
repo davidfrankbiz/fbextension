@@ -37,7 +37,9 @@
               <label for="register-email">Status</label>
               <select name="status" class="form-control"> 
                 <option value="1" @if($data['status'] ==1) selected @endif> Active</option>
-                <option value="0" @if($data['status'] ==0 ) selected @endif>Pending Review</option>
+                <option value="0" @if($data['status'] ==0 ) selected @endif>Pending</option>
+                <option value="2" @if($data['status'] ==2 ) selected @endif>Policy</option>
+                <option value="3" @if($data['status'] ==3 ) selected @endif>Logged Out</option>
  
                </select>
             </div>

@@ -26,7 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 {{--<small>Optional description</small>--}}
             </h1>
 
-              <span style="color: blue"> TimeZone: @php echo config('app.timezone'); @endphp </span>
+              <span style="color: green"> TimeZone: @php echo config('app.timezone'); @endphp </span>
             <ol class="breadcrumb">
                 <li><a href="{{url(''.'/'.Request::segment(1))}}"><i class="fa fa-dashboard"></i> @if(!empty(Request::segment(1)))
                             {{  ucfirst(Request::segment(1)) }}

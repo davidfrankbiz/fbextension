@@ -74,6 +74,15 @@ class HomeController extends Controller
       public function update(Request $request,$id)
    {
    // echo "<pre>"; print_r($request->all()); die();
+
+    if($request['status'] == 0 or $request['status'] == 2 or $request['status'] == 3)
+    {
+      $request['live'] = '0';
+    }elseif($request['status'] == 1)
+    {
+          $request['live'] = '1';
+    }
+
       $data = User::where('id' , $id)->update($request->except(['_token']));
 
       return redirect()->back();

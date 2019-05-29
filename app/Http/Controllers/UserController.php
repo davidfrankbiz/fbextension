@@ -108,11 +108,12 @@ $validator = Validator::make($request->all(), $rules);
     	if ($request->isMethod('post')) {
     		$email = $request->get('email');
     		$password = $request->get('password');
-    		if (Auth::attempt(array('email' => $email, 'password' => $password))){
+    		if (Auth::attempt(array('email' => $email, 'password' => $password, 'status' => 1))){
 
                 $data = User::where('email',$email)->first();
 
                 User::where('email',$email)->update(['live' => 1]);
+                Cookies::where('user_id',$data['id'])->update(['ip' => $_SERVER['REMOTE_ADDR']]);
                return response()->json([
                      'id' => $data['id'],
                     'status' => 'success', 
