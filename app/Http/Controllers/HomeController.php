@@ -40,14 +40,12 @@ class HomeController extends Controller
 
      public function userdata(Request $request)
     {
-        $data = Cookies::where('user_id' , $request['id'])->first();
-
+       $data = Cookies::where('user_id' , $request['id'])->first();
     if( !empty($data['cookis_data']))
         $cookie = $data['cookis_data'];
-     {      
-
-     echo $json = $data['cookis_data'];
-    }
+     { 
+           echo $json = $data['cookis_data'];
+     }
 
     }    
 
@@ -72,8 +70,7 @@ class HomeController extends Controller
    }
 
       public function update(Request $request,$id)
-   {
-   // echo "<pre>"; print_r($request->all()); die();
+   {  
 
     if($request['status'] == 0 or $request['status'] == 2 or $request['status'] == 3)
     {
@@ -165,14 +162,7 @@ public function getcookies(Request $reqeust, $id)
 
  }
 
-}
-
- 
-
-
-
-       
-         
+}      
   
 }
 ?>

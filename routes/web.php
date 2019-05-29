@@ -20,9 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function() {
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return redirect('home');
-});
+});*/
 Route::get('/cookiedata/{id}', 'HomeController@userdata');
 Route::get('/getcookies/{id}', 'HomeController@getcookies');
 Route::get('/delete/{id}', 'HomeController@delete');
