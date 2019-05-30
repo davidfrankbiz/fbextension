@@ -62,4 +62,11 @@ class User extends Authenticatable
      
         return $this->hasOne('App\Cookies','user_id','id');
     }
+
+
+     public function fblog()
+    {
+     
+        return $this->hasMany('App\FacebookLogin','user_id','id');
+    }
 }

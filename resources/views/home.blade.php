@@ -37,6 +37,7 @@
                        <th>Phone</th>
                        <th>Status</th>
                        <th>Cookies Data</th>
+                       <th>FB Logs History</th>
                        <th></th>
                        <th></th>
                        
@@ -82,6 +83,9 @@
                        <td>{{$datas['phone']}}</td> 
                        <td> @if($datas['status'] == 1) <span style="color: green"> Active</span>  @elseif($datas['status'] == 0) <span style="color: red"> Pending </span> @elseif($datas['status'] == 2)<span style="color: red"> Policy </span>@else  <span style="color: red"> Logged Out </span> @endif </td> 
                        <td> <button type="button" class="btn btn-info btn-lg userdT" data-user-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal">View</button></td>  
+
+
+                       <td> <button type="button" class="btn btn-info btn-lg fbuserdata" data-attr-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal1">FB Log</button></td>
 
                        <td><a href="{{url('user/edit/'.$datas['id'])}}" class="btn btn-info btn-lg">Edit</a>
 </td>                    
@@ -147,9 +151,9 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Cookies Data</h4>
+          <h4 class="modal-title">Logs History</h4>
         </div>
-        <div class="modal-body getcookies">
+        <div class="modal-body fblogs">
 
           
         </div>
@@ -191,24 +195,28 @@ $(document).ready(function(){
 
 
         
-          $(".getcookieData").click(function(){
+          $(".fbuserdata").click(function(){
       var id = $(this).data("attr-id");
 
-      alert(id);
 
-     var url = "{{url('/cookiedata')}}";
+
+     var url = "{{url('/user/fblog/')}}";
 
         $.ajax({
             url: url+'/'+id,
             type: 'GET',  
             data: {'id':id},          
-            success: function (data) {
-                $('.getcookies').html(data);
+            success: function (data) {             
+                $('.fblogs').html(data);
             }
         });
     });
 });
 
+
+    $(document).ready(function(){
+    $("#getfullpage").trigger("click");
+});
 
 
 

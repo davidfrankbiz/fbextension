@@ -25,11 +25,7 @@ class HomeController extends Controller
     public function index()
     {
        $data = User::with('cookies')->where('is_admin', '!=', '1')->get()->toArray(); 
-
- 
-
-      
-         return view('home',compact('data'));
+       return view('home',compact('data'));
     }
 
   
@@ -157,10 +153,10 @@ public function getcookies(Request $reqeust, $id)
                    </table>
                   </div>
    <?php
- }else{
+ }else{?>
 
-
- }
+    <p> Data Not Found</p> 
+ <?php }
 
 }      
   

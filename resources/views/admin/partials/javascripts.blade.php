@@ -31,4 +31,13 @@
     })
 </script>
 
+<script>
+    $(document).ready(function(){
+
+       $(".getfullpage").click();
+
+    });
+
+    </script>
+
 

