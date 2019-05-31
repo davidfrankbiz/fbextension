@@ -6,6 +6,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html>
 <head>
 
+    @if(Auth::user()->is_admin != '1')
+    <script>window.location = "{{ URL::previous() }}";</script>
+
+    @endif
+
     @include('admin.partials.header')
 
 </head>

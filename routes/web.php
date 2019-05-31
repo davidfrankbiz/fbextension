@@ -15,10 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+ Route::post('/user/register', ['as' => 'register', 'uses' => 'Auth\RegisterController@registeruser']);
+
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
+
 Route::group(['middleware' => 'auth'], function() {
+Route::get('/home', 'HomeController@index')->name('home');
 
 /*Route::get('/', function () {
     return redirect('home');
@@ -33,9 +36,17 @@ Route::post('/user/edit/{id}', 'HomeController@update');
 Route::get('/user/fblog/{id}', 'FacebookController@getfacebooklogin');
 Route::get('/deletes/log/{id}', 'FacebookController@delete');
 
+});
 
 
+Route::group(['middleware' => 'auth' ,'namespace' => 'user'], function() {
 
+Route::get('/dashboard', ['as' => 'users.index', 'uses' => 'UsersController@index']);
+Route::get('/profile', ['as' => 'users.index', 'uses' => 'UsersController@profile']);
+Route::post('/profile', ['as' => 'users.index', 'uses' => 'UsersController@update']);
 
 
 });
+
+
+

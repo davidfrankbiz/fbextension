@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Auth;
+
 
 class RegisterController extends Controller
 {
@@ -69,4 +72,32 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+
+    public function registeruser(Request $request)
+    {
+
+       $validator = Validator::make($request->all(), [
+           'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:register_user'],
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
+
+        ]);
+
+        if ($validator->fails()) {
+           return response()->json(['errors'=>$validator->errors()->all()]);
+        } else {
+               //echo "<pre>"; print_r($request->all()); die();
+                $data = $this->guard()->login(User::create($request->all()));
+                $user = User::where('email', $request['email'])->first();
+                
+
+                return response()->json(['success'=> $user['id']]);     
+                return redirect($this->redirectPath());      
+               }
+
+    }
+
+
+
 }

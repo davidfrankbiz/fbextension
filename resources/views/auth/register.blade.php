@@ -7,9 +7,15 @@
             <div class="card">
                 <div class="card-header">{{ __('Register') }}</div>
 
+                @if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
+
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                    <form method="POST" action="{{ url('/user/register') }}">
+                       {{ csrf_field() }}
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -65,7 +71,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('PayPal Email') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="email" class="form-control" name="paypal_email" required>
+                                <input id="password-confirm" type="email" class="form-control" name="paypal_email" >
                             </div>
                         </div>
 
@@ -74,7 +80,7 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Mobile Phone') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="text" class="form-control" name="phone" required>
+                                <input id="password-confirm" type="text" class="form-control" name="phone" >
                             </div>
                         </div>
 

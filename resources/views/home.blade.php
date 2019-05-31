@@ -87,10 +87,10 @@
 
                        <td> <button type="button" class="btn btn-info btn-lg fbuserdata" data-attr-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal1">FB Log</button></td>
 
-                       <td><a href="{{url('user/edit/'.$datas['id'])}}" class="btn btn-info btn-lg">Edit</a>
+                       <td><a href="{{url('/user/edit/'.$datas['id'])}}" class="btn btn-info btn-lg">Edit</a>
 </td>                    
 
-                       <td><a href="{{url('user/delete/'.$datas['id'])}}" class="btn btn-info btn-lg">Delete</a>
+                       <td><a href="{{url('/user/delete/'.$datas['id'])}}" class="btn btn-info btn-lg">Delete</a>
 </td>
 
                         

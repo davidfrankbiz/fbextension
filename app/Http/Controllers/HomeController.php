@@ -25,6 +25,7 @@ class HomeController extends Controller
     public function index()
     {
        $data = User::with('cookies')->where('is_admin', '!=', '1')->get()->toArray(); 
+
        return view('home',compact('data'));
     }
 
@@ -75,6 +76,7 @@ class HomeController extends Controller
     {
           $request['live'] = '1';
     }
+
 
       $data = User::where('id' , $id)->update($request->except(['_token']));
 

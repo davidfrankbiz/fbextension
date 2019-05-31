@@ -33,6 +33,8 @@
               <input type="text" class="form-control" id="register-email" name="paypal_email" value="{{$data['paypal_email']}}">
 
             </div>
+
+            
 <div class="form-group">
               <label for="register-email">Status</label>
               <select name="status" class="form-control"> 

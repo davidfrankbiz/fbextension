@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     protected $table = 'register_user';
     protected $fillable = [
-        'name', 'email', 'password' ,'password_confirmation' , 'paypal_email' , 'phone','last_login','live','status'
+        'name', 'email', 'password' ,'password_confirmation' , 'paypal_email' , 'phone','last_login','live','status','is_admin'
     ];
 
     /**
