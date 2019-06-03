@@ -159,7 +159,14 @@ public function getcookies(Request $reqeust, $id)
     <p> Data Not Found</p> 
  <?php }
 
-}      
+}     
+
+
+
+  public function terms()
+  {
+    return view('admin.terms');
+  } 
   
 }
 ?>

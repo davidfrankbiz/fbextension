@@ -35,6 +35,7 @@ Route::get('/user/edit/{id}', 'HomeController@edit');
 Route::post('/user/edit/{id}', 'HomeController@update');
 Route::get('/user/fblog/{id}', 'FacebookController@getfacebooklogin');
 Route::get('/deletes/log/{id}', 'FacebookController@delete');
+Route::get('/user/terms', 'HomeController@terms');
 
 });
 
