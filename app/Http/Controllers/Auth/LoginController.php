@@ -31,7 +31,7 @@ class LoginController extends Controller
     {
         if (auth()->user()->is_admin == '1') {
             return '/home';
-        } else if (auth()->user()->is_admin == '0' &&  auth()->user()->status == '1' ) {
+        } else if (auth()->user()->is_admin == '0') {
             return '/dashboard';
         } 
     }

@@ -18,9 +18,8 @@
     <link rel="stylesheet" href="{{ asset('users/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('users/min.css') }}">
     <link rel="stylesheet" href="{{ asset('users/header.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('users/main.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
-          integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('users/main.min.css') }}">     
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
     <!-- Styles -->
@@ -140,7 +139,7 @@
                                                             <li><a href="{{url('dashboard')}}">Dashboard</a></li>
 
                                                                 <li><a href="{{url('profile')}}">Profile</a></li>
-                                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                                <li class="logoutlog"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
                                     Logout</a></li>
                                                     </ul>
                     </div>

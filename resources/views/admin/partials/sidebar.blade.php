@@ -32,7 +32,7 @@
         <ul class="sidebar-menu" data-widget="tree">            
 
             <li class="active"><a href="{{url('/')}}"><i class="fa fa-user"></i> <span>Home</span></a></li>
-            <li class="active"><a href="{{url('terms')}}"><i class="fa fa-user"></i> <span>Terms</span></a></li>    
+           <!--  <li class="active"><a href="{{url('terms')}}"><i class="fa fa-user"></i> <span>Terms</span></a></li>     -->
           <!--   <li class="active"><a href="{{url('/user/index')}}"><i class="fa fa-user"></i> <span>User</span></a></li>  -->    
 
 

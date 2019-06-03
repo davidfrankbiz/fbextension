@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+<section style="min-height:55vh">
+    <div class="container">
+        
+        
+
 <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -31,7 +38,7 @@
 
 
                         <div class="form-group">                           
-                              <label for="email" class="col-md-4 control-label">{{ __('E-Mail Address') }}</label>
+                              <label for="email" class="col-md-4 control-label">{{ __('Password') }}</label>
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
@@ -63,7 +70,7 @@
                          <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i> Login
+                                    <i class="fa fa-sign-in" aria-hidden="true"></i> Login
                                 </button>
                                @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
@@ -80,9 +87,9 @@
         </div>
     </div>
 </div>
+</section>
+
 @endsection
-
-
 
 
 

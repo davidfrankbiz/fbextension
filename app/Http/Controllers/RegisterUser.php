@@ -28,10 +28,16 @@ class RegisterUser extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         } else {
 
+            $request['status'] = 0;
+
         	RegisteruserModel::create($request->all());
 
 
         }
 	}
+
+
+
+
     
 }

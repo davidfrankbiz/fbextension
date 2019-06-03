@@ -88,15 +88,20 @@ class RegisterController extends Controller
            return response()->json(['errors'=>$validator->errors()->all()]);
         } else {
                //echo "<pre>"; print_r($request->all()); die();
+            $request['password'] = bcrypt($request['password']);
                 $data = $this->guard()->login(User::create($request->all()));
                 $user = User::where('email', $request['email'])->first();
                 
 
-                return response()->json(['success'=> $user['id']]);     
+                return response()->json(['id'=> $user['id']]);     
                 return redirect($this->redirectPath());      
                }
 
     }
+
+
+
+
 
 
 

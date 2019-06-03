@@ -57,6 +57,8 @@ $validator = Validator::make($request->all(), $rules);
         
             $request['password'] = bcrypt($request->get('password'));
             $request['password_confirmation'] = bcrypt($request->get('password_confirmation'));
+
+            $requst['status'] = 0;
         
             if(User::create($request->all())){
                 return response()->json([
@@ -80,7 +82,7 @@ $validator = Validator::make($request->all(), $rules);
     	if ($request->isMethod('post')) {
     		$email = $request->get('email');
     		$password = $request->get('password');
-    		if (Auth::attempt(array('email' => $email, 'password' => $password, 'status' => 1))){
+    		if (Auth::attempt(array('email' => $email, 'password' => $password, 'is_admin' => 0))){
 
                 $data = User::where('email',$email)->first();
 

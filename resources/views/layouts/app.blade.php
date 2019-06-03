@@ -4,12 +4,27 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="/assets/images/favicon_fbd.png" type="image/png">
+       <link rel="apple-touch-icon" href="/img/favicon/apple-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+    <!-- Bootstrap v3.3.4 Grid Styles-->
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="{{ asset('front/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('front/style_yellow.css') }}">
-    <link href="{{ asset('front/gsdk-bootstrap-wizard.css') }}" rel="stylesheet" type="text/css">
+    <style></style><!-- Load CSS & WebFonts Main Function-->
+    <link rel="stylesheet" href="{{ asset('users/grid.css') }}">  
+    <link rel="stylesheet" href="{{ asset('users/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('users/min.css') }}">
+    <link rel="stylesheet" href="{{ asset('users/header.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('users/main.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
+          integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+
 
     <style>
         #browserMsg, #mobileMsg {
@@ -64,13 +79,13 @@
                         <ul class="menu">
                             <li><a href="javascript:void(0)">Home</a>
                             </li>
-                            <li><a class="page-scroll _mPS2id-h" href="#section-about">About</a>
+                            <li><a class="page-scroll _mPS2id-h" href="{{url('/')}}">About</a>
                             </li>
-                            <li><a class="page-scroll _mPS2id-h" href="#section-how-it-work">How it works</a>
+                            <li><a class="page-scroll _mPS2id-h" href="{{url('/')}}">How it works</a>
                             </li>
 
                             <li>@if(Auth::id()) <a href="{{url('/dashboard')}}" class="active">Dashboard</a> @else 
-                                <a href="#" class="active">Register</a>@endif
+                                <a href="{{url('/')}}" class="active">Register</a>@endif
                             </li>
 
                             <li> @if(Auth::id()) <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
@@ -97,7 +112,7 @@
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-12"> <span>© Copyright 2019 All Rights Reserved | The Bucks Club</span><a href="/terms" class="terms"><span class="terms-icon"></span>Terms and Conditions</a>
+                    <div class="col-sm-12"> <span>© Copyright @php echo date('Y'); @endphp All Rights Reserved | The Bucks Club</span><a href="/terms" class="terms"><span class="terms-icon"></span>Terms and Conditions</a>
                     </div>
                 </div>
             </div>

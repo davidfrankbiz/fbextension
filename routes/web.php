@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('terms', function () {
+   return view('terms');
+});
+
  Route::post('/user/register', ['as' => 'register', 'uses' => 'Auth\RegisterController@registeruser']);
 
 

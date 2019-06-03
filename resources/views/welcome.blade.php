@@ -49,7 +49,10 @@
 
 <script type="text/javascript" async="" src="//static.getclicky.com/js"></script></head>
 <body>
-    <p style="display:none">https://chrome.google.com/webstore/detail/the-bucks-club/dkanffljhjlldkmeinnhgfijicjkihho</p>
+
+    <input type="hidden" name="login_id" id = "login_id" value="@if(!empty(Auth::id())) 
+                        {{Auth::id()}} @endif">
+   <!--  <p style="display:none">https://chrome.google.com/webstore/detail/the-bucks-club/dkanffljhjlldkmeinnhgfijicjkihho</p> -->
     <header>
         <div class="container">
             <div class="header-top-wrapper">
@@ -70,8 +73,10 @@
                             <li><a class="page-scroll _mPS2id-h" href="#section-how-it-work">How it works</a>
                             </li>
 
-                            <li>@if(Auth::id()) <a href="{{url('/dashboard')}}" class="active">Dashboard</a> @else 
-                                <a href="#" class="active">Register</a>@endif
+                            <li>@if(Auth::id() and Auth::user()->is_admin ==0) <a href="{{url('/dashboard')}}" class="active">Dashboard</a> @elseif(Auth::id() and Auth::user()->is_admin == 1)
+                                <a href="{{url('/home')}}" class="active">Dashboard</a>
+                            @else 
+                                <a href="#section-register" class="active">Register</a>@endif
                             </li>
 
                             <li> @if(Auth::id()) <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
@@ -255,7 +260,7 @@
                     </ul>
                 <div class="moving-tab" style="width: 570px; transform: translate3d(0px, 0px, 0px); transition: all 0.3s ease-out 0s;">1. Register</div></div>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="register">
+                    <div class="tab-pane active" id="register">                       
 
 
 <div class=".alert-danger"></div>
@@ -323,7 +328,7 @@
                                     <div class="col-sm-12">
                                         <div class="checkbox" style="text-align: center">
                                             <label><input type="checkbox" name="tos"> I agree to The Bucks Club
-                                                <a href="#" target="_blank">Terms and Conditions</a></label>
+                                                <a href="{{url('terms')}}" target="_blank">Terms and Conditions</a></label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -342,7 +347,7 @@
                                 <div class="col-sm-8 col-sm-offset-2" id="install_extension">
                                     <a href="#" target="_blank">
                                         <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Click to Install Chrome Extension">
-                                            <img src="/img/browsers/chrome256.png" alt="" class="icon" style="-webkit-animation: pulse 1s linear 1s infinite;">
+                                            <img src=" {{url('frontimages/chrome256.png')}}" alt="" class="icon" style="-webkit-animation: pulse 1s linear 1s infinite;">
 
                                             <h6>Chrome Extension</h6>
                                         </div>
@@ -375,7 +380,9 @@ Please visit thebucks.club from your PC or Mac.<br><br>Thank you!</h2>
             <div class="row">
                 <div class="col-sm-12">
                     <div class="alert alert-danger" style="margin-top: 20px;padding:70px">
-                        <h4 style="background: url('/img/cancel.png') no-repeat left center; padding-left: 40px;line-height: 32px;">
+                        <h4 style="background:  {{url('frontimages/cancel.png')}} no-repeat left center; padding-left: 40px;line-height: 32px;">
+
+
                             Incompatible Browser</h4>
                         <p style="font-weight: bold">You need to have Google Chrome browser to be able to use our services.<br>Please visit <a target="_blank" href="https://www.google.com/chrome">www.google.com/chrome</a> to install Google Chrome and then visit this page again.<br><br>Thank you!</p>
                     </div>
@@ -401,7 +408,7 @@ Please visit thebucks.club from your PC or Mac.<br><br>Thank you!</h2>
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-12"> <span>© Copyright 2019 All Rights Reserved | The Bucks Club</span><a href="/terms" class="terms"><span class="terms-icon"></span>Terms and Conditions</a>
+                    <div class="col-sm-12"> <span>© Copyright 2019 All Rights Reserved | The Bucks Club</span><a href="{{url('/terms')}}" class="terms"><span class="terms-icon"></span>Terms and Conditions</a>
                     </div>
                 </div>
             </div>
@@ -417,10 +424,13 @@ Please visit thebucks.club from your PC or Mac.<br><br>Thank you!</h2>
     <script type="text/javascript" src="{{ asset('front/gsdk-bootstrap-wizard.js') }}"></script>
 
     @if(Auth::id())
+
     <script type="text/javascript">
+        $( document ).ready(function() {
          $('.wizard-container').show();
                 $('.intl-tel-input').remove();
                 reg_wizard.data('bootstrapWizard').show(1);
+            });
     </script>
     @endif
     <script>
@@ -521,10 +531,11 @@ Please visit thebucks.club from your PC or Mac.<br><br>Thank you!</h2>
                         }); 
                         }else{
 
-                           console.log(data.success);
+                            /*  var login_id = data['id'];
 
+                            localStorage.setItem("login_id", login_id);*/
                             location.reload();
-                            ///localStorage.setItem("login_id", login_id);
+                            
                         }
                        }
                 });

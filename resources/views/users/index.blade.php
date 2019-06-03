@@ -3,6 +3,13 @@
 
 @section('content')
 
+<style type="text/css">
+    
+    i.fa.fa-usd {
+    color: #6cc9d8;
+}
+</style>
+
      <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -16,20 +23,25 @@
                 <h4 class="page-title">Dashboard</h4>
                 <p class="text-muted page-title-alt">Welcome, {{Auth::user()->name}}</p>
 
-                
-                                                    <div class="alert alert-danger">
+                @if(!empty(Auth::id()) and Auth::user()->status != 1)
+                     <div class="alert alert-danger">
                         <strong>Pending Review</strong><br>Your account is still pending review.
                                                     This shouldn't take much time!
                         
-                    </div>
-                            </div>
+                     </div>
+                @endif    
+
+             </div>
         </div>
+
+          <input type="hidden" name="login_id" id = "login_id" value="@if(!empty(Auth::id())) 
+                        {{Auth::id()}} @endif">
 
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <div class="widget-bg-color-icon card-box fadeInDown animated">
                     <div class="bg-icon bg-icon-info pull-left">
-                        <i class="md md-attach-money text-info"></i>
+                       <i class="fa fa-usd" aria-hidden="true"></i>
                     </div>
                     <div class="text-right">
                         <h3 class="text-dark"><b class="counter">$0 / $0</b></h3>
@@ -42,7 +54,7 @@
             <div class="col-md-6 col-lg-6">
                 <div class="widget-bg-color-icon card-box">
                     <div class="bg-icon bg-icon-purple pull-left">
-                        <i class="md md-equalizer text-purple"></i>
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
                     </div>
                     <div class="text-right">
                         <h3 class="text-dark"><b class="counter">0</b></h3>

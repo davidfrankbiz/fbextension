@@ -51,4 +51,11 @@ class UsersController extends Controller
 
     }
 
+
+     
+    public function terms()
+    {
+        return view('terms');
+    }
+
 }
