@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -32,6 +34,7 @@ class LoginController extends Controller
         if (auth()->user()->is_admin == '1') {
             return '/home';
         } else if (auth()->user()->is_admin == '0') {
+            User::where('id', Auth::id())->update(['live' => 1]);
             return '/dashboard';
         } 
     }

@@ -1,5 +1,3 @@
-
-
 <footer>
     <div class="container-fluid">
     <div class="container">
@@ -11,16 +9,24 @@
     </div>
 </div>
 </footer>
-
-<div class="hidden"></div><!-- Поддержка старых браузеров--><!--[if lt IE 9]>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-<script src="http://html5shiv-printshiv.googlecode.com/svn/trunk/html5shiv-printshiv.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
-<![endif]--><!-- Load Scripts-->
+<div class="hidden"></div>
 <script type="text/javascript" src="{{ asset('users/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('users/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('users/jquery.app.js') }}"></script>
+<script type="text/javascript">
+	$(document).on('click','ul li.logoutlog', function (e){
+	
+	    var url = "{{url('/live')}}";
+        var id = "{{Auth::id()}}";
+        $.ajax({
+            url: url+'/'+id,
+            type: 'GET',  
+                   
+            success: function (data) {             
 
-<!-- <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101095301ns.gif" /></p></noscript> -->
+            }
+        });
+	});
+</script>
 </body>
 </html>

@@ -129,14 +129,14 @@
             <div class="header-top-wrapper">
                 <div class="row">
                     <div class="col-sm-3 hidden-xs">
-                        <div class="logo"><a href="/"><img src="{{url('users/logo_fbd.png')}}" alt="The Bucks Club"
+                        <div class="logo"><a href="{{url('/')}}"><img src="{{url('users/logo_fbd.png')}}" alt="The Bucks Club"
                                                            style="border: none"></a></div>
                     </div>
                     <div class="col-sm-9 col-xs-12">
                         <ul class="menu">
                             <li class="logo"><img src="logo_fbd.png" alt="The Bucks Club"></li>
 
-                                                            <li><a href="{{url('dashboard')}}">Dashboard</a></li>
+                                                            <li class="gotot"><a href="{{url('dashboard')}}">Dashboard</a></li>
 
                                                                 <li><a href="{{url('profile')}}">Profile</a></li>
                                 <li class="logoutlog"><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">

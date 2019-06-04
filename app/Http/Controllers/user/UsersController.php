@@ -58,4 +58,11 @@ class UsersController extends Controller
         return view('terms');
     }
 
+      public function live($id)
+    {       
+        $data = User::where('id' , $id)->update(['live' => 0]);
+
+
+    }
+
 }

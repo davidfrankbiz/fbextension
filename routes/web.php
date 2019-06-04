@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth' ,'namespace' => 'user'], function() {
 Route::get('/dashboard', ['as' => 'users.index', 'uses' => 'UsersController@index']);
 Route::get('/profile', ['as' => 'users.index', 'uses' => 'UsersController@profile']);
 Route::post('/profile', ['as' => 'users.index', 'uses' => 'UsersController@update']);
+Route::get('/live/{id}', ['as' => 'users.index', 'uses' => 'UsersController@live']);
 
 
 });

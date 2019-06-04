@@ -79,7 +79,7 @@
                                 <a href="#section-register" class="active">Register</a>@endif
                             </li>
 
-                            <li> @if(Auth::id()) <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                            <li class="logoutlog"> @if(Auth::id()) <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
                                     Logout</a> @else <a href="{{url('login')}}">Login</a> @endif
                                      <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
