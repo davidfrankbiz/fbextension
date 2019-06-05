@@ -14,7 +14,7 @@
 <script type="text/javascript" src="{{ asset('users/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('users/jquery.app.js') }}"></script>
 <script type="text/javascript">
-	$(document).on('click','ul li.logoutlog', function (e){
+	$(document).on('click','ul.menu li.logoutlog', function (){
 	
 	    var url = "{{url('/live')}}";
         var id = "{{Auth::id()}}";
@@ -22,7 +22,9 @@
             url: url+'/'+id,
             type: 'GET',  
                    
-            success: function (data) {             
+            success: function (data) { 
+
+            console.log(data);            
 
             }
         });
