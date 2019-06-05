@@ -22,6 +22,9 @@ Route::post('/user/updatesV2',  'UserController@updatesV2');
 Route::post('/user/ajax_cookies',  'UserController@ajax_cookies');
 Route::post('/user/updatecookie',  'UserController@updatecookie');
 Route::post('/user/checkUserLoggedIn',  'UserController@checkUserLoggedIn');
+Route::post('/user/updateUser',  'UserController@updateUser');
+
+
 
 // Route::middleware('jwt.auth')->group(function(){ 
 // });
