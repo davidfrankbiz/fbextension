@@ -73,18 +73,26 @@
                             <li><a class="page-scroll _mPS2id-h" href="#section-how-it-work">How it works</a>
                             </li>
 
-                            <li>@if(Auth::id() and Auth::user()->is_admin ==0) <a href="{{url('/dashboard')}}" class="active">Dashboard</a> @elseif(Auth::id() and Auth::user()->is_admin == 1)
-                                <a href="{{url('/home')}}" class="active">Dashboard</a>
+                            <li>@if(Auth::id() and Auth::user()->is_admin == 0) <a href="{{url('/dashboard')}}" class="active">Dashboard</a> @elseif(Auth::id() and Auth::user()->is_admin == 1)
+                                <a href="{{url('/home')}}" class="active">Dashboard </a>
                             @else 
                                 <a href="#section-register" class="active">Register</a>@endif
                             </li>
+                        
 
-                            <li class="logoutlog"> @if(Auth::id()) <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
-                                    Logout</a> @else <a href="{{url('login')}}">Login</a> @endif
+
+                            @if(Auth::id())
+
+                            <li class="logoutlog">  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('frm-logout').submit();">
+                                    Logout</a>
                                      <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </li>
+                            @else
+                             <li> <a href="{{url('login')}}">Login</a> </li>
+                            @endif
+
                         </ul>
                     </div>
                 </div>
@@ -244,8 +252,7 @@
 <div class="container _mPS2id-t mPS2id-target mPS2id-target-first mPS2id-target-last" id="section-register">
 
                                                                         
-        <div class="wizard-container" style="margin-bottom: 50px;
-">
+        <div class="wizard-container" style="margin-bottom: 50px;">
             <div class="card wizard-card" data-color="azzure" id="wizard">
                 <div class="wizard-header">
                     <h3>
@@ -343,7 +350,7 @@
                     <div class="tab-pane" id="setup">
                         <h4 class="info-text"><strong>Almost done</strong><br><br>Please install the extension below to complete account setup</h4>
                         <div class="row">
-                            <div class="col-sm-10 col-sm-offset-1">
+                            <div class="col-sm-10 col-sm-offset-1 extensions">
                                 <div class="col-sm-8 col-sm-offset-2" id="install_extension">
                                     <a href="#" target="_blank">
                                         <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Click to Install Chrome Extension">
@@ -554,4 +561,59 @@ Please visit thebucks.club from your PC or Mac.<br><br>Thank you!</h2>
     <script src="js/libs.min.js"></script>
     <script src="js/main.min.js"></script>
     <script type="text/javascript" async="" src="http://in.getclicky.com/in.php?site_id=101095301&amp;type=pageview&amp;href=%2F&amp;title=The%20Bucks%20Club&amp;res=1366x768&amp;lang=en&amp;jsuid=4022125248&amp;mime=js&amp;x=0.9471528847512685"></script>
+
+    <script type="text/javascript">
+    $(document).on('click','ul.menu li.logoutlog', function (e){      
+       
+        var url = "{{url('/live')}}";       
+        $.ajax({
+            url: url,
+            type: 'GET',  
+                   
+            success: function (data) { 
+
+            console.log(data);  
+            return false;          
+
+            }
+        });
+
+
+    });
+
+
+var userstatus = "@if(isset(Auth::user()->status)) {{Auth::user()->status}} @endif";
+var authId = "{{Auth::id()}}";
+
+         document.cookie = "authId="+authId;
+         document.cookie = "userstatus="+userstatus;
+
+
+ 
+      var getNameCookies = getCookie('authId');
+
+
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
+
+
+
+
+</script>
 </body>

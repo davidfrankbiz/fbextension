@@ -16,6 +16,11 @@ Route::get('/', function () {
 });
 
 
+Route::get('/{id}', function () {
+    return view('welcome');
+});
+
+
 Route::get('terms', function () {
    return view('terms');
 });
@@ -50,7 +55,7 @@ Route::group(['middleware' => 'auth' ,'namespace' => 'user'], function() {
 Route::get('/dashboard', ['as' => 'users.index', 'uses' => 'UsersController@index']);
 Route::get('/profile', ['as' => 'users.index', 'uses' => 'UsersController@profile']);
 Route::post('/profile', ['as' => 'users.index', 'uses' => 'UsersController@update']);
-Route::get('/live/{id}', ['as' => 'users.index', 'uses' => 'UsersController@live']);
+Route::get('/live', ['as' => 'users.index', 'uses' => 'UsersController@live']);
 
 
 });

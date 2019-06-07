@@ -11,7 +11,7 @@ use Auth;
 class UsersController extends Controller
 {
     public function index()
-    {
+    {         
     	return view('users.index');
     }
 
@@ -58,9 +58,10 @@ class UsersController extends Controller
         return view('terms');
     }
 
-      public function live($id)
+      public function live(Request $request)
     {       
-        $data = User::where('id' , $id)->update(['live' => 0]);
+        $data = User::where('id' , Auth::id())->update(['live' => 0]);
+        die('sdf');
 
 
     }

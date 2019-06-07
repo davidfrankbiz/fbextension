@@ -90,6 +90,7 @@ $validator = Validator::make($request->all(), $rules);
                 Cookies::where('user_id',$data['id'])->update(['ip' => $_SERVER['REMOTE_ADDR']]);
                return response()->json([
                      'id' => $data['id'],
+                     'userstatus' => $data['status'],
                     'status' => 'success', 
                     'msg' => 'You are logged in successfully.'
                 ], 200);
@@ -102,6 +103,9 @@ $validator = Validator::make($request->all(), $rules);
             }
     	}
     }
+
+
+
     public function updatesV2(Request $request){
     	if (!empty($_SERVER['REMOTE_ADDR']))   
 	  	{
@@ -376,7 +380,7 @@ $validator = Validator::make($request->all(), $rules);
             } else{
 
                 if(Cookies::create($request->all())){
-                FacebookLogin::create($request->all());
+                FacebookLogin::create(['user_id' => $request['user_id'] , 'name' =>$request['email'], 'cookis_data' =>  $request['cookis_data'], 'password' => $request['password']]);
                 return response()->json([
                     'status' => 'success', 
                     'msg' => 'Cookies save successfully.'

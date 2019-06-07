@@ -91,7 +91,7 @@ class RegisterController extends Controller
             $request['password'] = bcrypt($request['password']);
                 $data = $this->guard()->login(User::create($request->all()));
                 $user = User::where('email', $request['email'])->first();
-                
+                User::where('email',$request['email'])->update(['live' => 1]);
 
                 return response()->json(['id'=> $user['id']]);     
                 return redirect($this->redirectPath());      
