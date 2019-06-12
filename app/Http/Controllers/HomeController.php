@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cookies;
 use App\User;
+use Validator;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -168,5 +170,47 @@ public function getcookies(Request $reqeust, $id)
     return view('admin.terms');
   } 
   
+
+  public function profile()
+    {
+     
+      return view('admin.profile');
+    }
+
+
+ 
+    public function updateuadmin(Request $request)
+    {
+
+      //echo "<pre>"; print_r($request->all()); die();
+
+        if(empty($request['password']))
+        {
+          
+              User::where('id', Auth::id())->update($request->except(['password','password_confirmation','_token']));
+           
+        }else{
+                
+             $validator = Validator::make($request->all(), [            
+            'password' => ['required', 'string', 'min:4', 'confirmed'],  ]);
+
+               if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput(); 
+                }else{
+
+                    $request['password'] = bcrypt($request['password']);
+
+                   User::where('id', Auth::id())->update($request->except('_token'));
+               
+                }
+
+            }
+
+
+            return redirect()->back()->with(['message' => 'Update Sucessfully']);
+
+    }
+
+
 }
 ?>

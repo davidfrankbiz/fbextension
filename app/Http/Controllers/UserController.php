@@ -418,4 +418,29 @@ $validator = Validator::make($request->all(), $rules);
 
 
     }
+
+
+
+    public function checkuser($id)
+    {
+
+        $data = User::where('id', $id)->first();
+
+        if(!empty($data))
+        {
+
+         return response()->json([
+                     'id' => $data['id'],
+                     'userstatus' => $data['status'],
+                    'status' => 'success', 
+                    'msg' => 'You are logged in successfully.'
+                ], 200);
+            }
+            else {        
+                return response()->json([
+                    'status' => 'error', 
+                    'msg' => 'We can`t find an account with this credentials.'
+                ], 401);
+            }
+    }
 }

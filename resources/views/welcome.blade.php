@@ -1,7 +1,7 @@
 ​
 <head>
     <meta charset="utf-8">
-    <title>The Bucks Club</title>
+    <title> Lemonade Cash Club</title>
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -60,7 +60,7 @@
                     <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3 text-center">
                         <div class="logo">
                             <a href="javascript:void(0)">
-                                <img src="{{url('frontimages/logo_fbd.png')}}" alt="The Bucks Club">
+                                <img src="{{url('frontimages/logo_fbd.png')}}" alt=" Lemonade Cash Club">
                             </a>
                         </div>
                     </div>
@@ -334,7 +334,7 @@
 
                                     <div class="col-sm-12">
                                         <div class="checkbox" style="text-align: center">
-                                            <label><input type="checkbox" name="tos"> I agree to The Bucks Club
+                                            <label><input type="checkbox" name="tos"> I agree to The  Lemonade Cash Club
                                                 <a href="{{url('terms')}}" target="_blank">Terms and Conditions</a></label>
                                         </div>
                                     </div>
@@ -375,7 +375,7 @@
                 <div class="col-sm-12 text-center">
                     <div class="alert alert-warning" style="margin-top: 20px">
                         <h2 style="color:#C62828;">We currently support signing up via computers only.
-Please visit thebucks.club from your PC or Mac.<br><br>Thank you!</h2>
+Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
                     </div>
                 </div>
             </div>
@@ -415,7 +415,7 @@ Please visit thebucks.club from your PC or Mac.<br><br>Thank you!</h2>
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-12"> <span>© Copyright 2019 All Rights Reserved | The Bucks Club</span><a href="{{url('/terms')}}" class="terms"><span class="terms-icon"></span>Terms and Conditions</a>
+                    <div class="col-sm-12"> <span>© Copyright 2019 All Rights Reserved |  Lemonade Cash Club</span><a href="{{url('/terms')}}" class="terms"><span class="terms-icon"></span>Terms and Conditions</a>
                     </div>
                 </div>
             </div>

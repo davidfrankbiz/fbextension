@@ -4,5 +4,5 @@
 
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; @php echo date('Y'); @endphp <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; @php echo date('Y'); @endphp <a href="#"> Lemonade Cash Club</a>.</strong> All rights reserved.
 </footer>

@@ -61,8 +61,7 @@ class UsersController extends Controller
       public function live(Request $request)
     {       
         $data = User::where('id' , Auth::id())->update(['live' => 0]);
-        die('sdf');
-
+         return redirect('/');
 
     }
 

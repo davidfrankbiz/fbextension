@@ -3,7 +3,7 @@
 <html lang="en" class="no-js">
 <head>
     <meta charset="utf-8">
-    <title>The Bucks Club</title>
+    <title> Lemonade Cash Club</title>
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -105,7 +105,7 @@
         <div class="header-top-wrapper">
             <div class="row">
                 <div class="col-sm-3 hidden-xs">
-                    <div class="logo"><a href="/"><img src="{{url('users/logo_fbd.png')}}" alt="The Bucks Club" style="border: none"></a></div>
+                    <div class="logo"><a href="/"><img src="{{url('users/logo_fbd.png')}}" alt=" Lemonade Cash Club" style="border: none"></a></div>
                 </div>
 
             </div>
@@ -127,7 +127,7 @@
                     <p class="facebook-containt"><h3>1. Privacy</h3></p>
                     <!--1 starts-->
                     <p class="facebook-containt">We (the “Company") recognize that privacy is important.<br>
-                        This Privacy Policy applies to all of the plugins, software, services, information, tools, features and functionality offered by Us or by our subsidiaries or afﬁliated companies, or their distributors (collectively, "Our Products“) and covers how PII that the Company collects and receives, including in respect of any use of Our Products, is treated. If you have any questions about this Privacy Policy, please feel free to contact us at: legal ( @ ) thebucks.club</p>
+                        This Privacy Policy applies to all of the plugins, software, services, information, tools, features and functionality offered by Us or by our subsidiaries or afﬁliated companies, or their distributors (collectively, "Our Products“) and covers how PII that the Company collects and receives, including in respect of any use of Our Products, is treated. If you have any questions about this Privacy Policy, please feel free to contact us at: legal ( @ )  Lemonade Cash Club</p>
                     <!--1 ends-->
                     <p class="facebook-containt"><h3>2. Collected</h3></p>
                     <!--2.1 starts-->
@@ -218,7 +218,7 @@
                     <!--12 ends-->
                     <!--13 starts-->
                     <p class="facebook-containt"><h3>13. Your California Privacy Rights and Do Not Track Notices.</h3></p>
-                    <p class="facebook-containt">California Civil Code Section 1798.83 permits customers of Company who are California residents to request certain information regarding its disclosure of PII to third parties for their direct marketing purposes. To make such a request, please send an email to info@thebucks.club. Please note that we are only required to respond to one request per customer each year.</p>
+                    <p class="facebook-containt">California Civil Code Section 1798.83 permits customers of Company who are California residents to request certain information regarding its disclosure of PII to third parties for their direct marketing purposes. To make such a request, please send an email to info@Lemonade.club. Please note that we are only required to respond to one request per customer each year.</p>
                     <!--13 ends-->
                     <p class="facebook-containt">Updated  July 14, 2017</p>
                 </div>

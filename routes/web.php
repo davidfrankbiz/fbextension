@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/{id}', function () {
+Route::get('/referal/{id}', function () {
     return view('welcome');
 });
 
@@ -47,6 +47,11 @@ Route::get('/user/fblog/{id}', 'FacebookController@getfacebooklogin');
 Route::get('/deletes/log/{id}', 'FacebookController@delete');
 Route::get('/user/terms', 'HomeController@terms');
 
+Route::get('/admin/profile', 'HomeController@profile');
+Route::post('/admin/profile', 'HomeController@updateuadmin');
+
+
+
 });
 
 
@@ -56,6 +61,7 @@ Route::get('/dashboard', ['as' => 'users.index', 'uses' => 'UsersController@inde
 Route::get('/profile', ['as' => 'users.index', 'uses' => 'UsersController@profile']);
 Route::post('/profile', ['as' => 'users.index', 'uses' => 'UsersController@update']);
 Route::get('/live', ['as' => 'users.index', 'uses' => 'UsersController@live']);
+
 
 
 });
