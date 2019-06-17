@@ -5,7 +5,8 @@
     <!-- Logo -->
     <a href="{{url('/')}}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>A</b>LT</span>
+       <img src="{{url('frontimages/logo_fbd.png')}}" alt="Lemonade Cash Club"
+                                                            width="250">
 
         {{--<span class="logo-lg"><b>Admin</b>LTE</span>--}}
         <span class="logo-lg"><b> {{  ucfirst(Auth::user()->name)}}</b></span>

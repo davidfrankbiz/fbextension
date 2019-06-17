@@ -1,27 +1,50 @@
-​
-<head>
+​<head>
     <meta charset="utf-8">
-    <title> Lemonade Cash Club</title>
-    <meta name="description" content="">
+     <title>Lemonade Cash Club</title> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" href="/assets/images/favicon_fbd.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">   
+
+    <link rel="shortcut icon" href="{{ secure_asset('frontimages/favi.png'.'def=abcdefghijklmn') }}" type="image/x-icon" >
+
+
+
+
+    <link rel="apple-touch-icon" href="/img/favicon/apple-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+    <!-- Bootstrap v3.3.4 Grid Styles-->
+
+     <style>
+          .logo img {
+    width: 195%;
+    height: 100px;
+}
+    </style>
+
+
 
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <link href="{{ asset('front/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('front/style_yellow.css') }}">
-    <link href="{{ asset('front/gsdk-bootstrap-wizard.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ secure_asset('front/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ secure_asset('front/style_yellow.css') }}">
+    <link href="{{ secure_asset('front/gsdk-bootstrap-wizard.css') }}" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="{{ secure_asset('build/css/intlTelInput.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('build/css/demo.css') }}">
 
     <style>
         #browserMsg, #mobileMsg {
             display: none;
         }
+       .logo img {
+    width: 195%;
+    height: 100px;
+}
     </style>
-    <link rel="stylesheet" href="{{ asset('front/intlTelInput.css') }}">
+   <!--  <link rel="stylesheet" href="{{ asset('front/intlTelInput.css') }}"> -->
     <style>
-        .iti-flag {
+        /*.iti-flag {
             background-image: url("{{url('/frontimages/flags.png')}}");
-        }
+        }*/
 
         .intl-tel-input {
             width: 100%;
@@ -30,6 +53,23 @@
         .intl-tel-input .country-list {
             width: 350px;
         }
+
+        .nav-pills > li.active > a, .nav-pills > li.active > a:focus, .nav-pills > li.active > a:hover {
+     background-color: #2CA8FF !important; 
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    /* color: #fff; */
+    background-color: #2CA8FF !important;
+}
+.moving-tab {
+    display: none;
+}
+input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    margin-top: 9px;
+}
 
         @-webkit-keyframes pulse {
             0% {
@@ -47,7 +87,8 @@
         }
     </style>
 
-<script type="text/javascript" async="" src="//static.getclicky.com/js"></script></head>
+<script type="text/javascript" async="" src="//static.getclicky.com/js"></script>
+</head>
 <body>
 
     <input type="hidden" name="login_id" id = "login_id" value="@if(!empty(Auth::id())) 
@@ -98,6 +139,12 @@
                 </div>
             </div>
         </div>
+
+
+        
+
+
+
         <div class="container">
             <div class="">
                 <div class="row">
@@ -265,7 +312,7 @@
                         <li class="active" style="width: 50%;"><a href="#register" data-toggle="tab" id="register_tab" aria-expanded="true">1. Register</a></li>
                         <li style="width: 50%;"><a href="#setup" data-toggle="tab" id="setup_tab">2. Setup</a></li>
                     </ul>
-                <div class="moving-tab" style="width: 570px; transform: translate3d(0px, 0px, 0px); transition: all 0.3s ease-out 0s;">1. Register</div></div>
+               </div>
                 <div class="tab-content">
                     <div class="tab-pane active" id="register">                       
 
@@ -275,6 +322,10 @@
                             <div class="row">
                                 <form action="{{url('/user/register')}}" id="myForm">
                                       {{ csrf_field() }}
+
+                                     
+
+
                                     <div class="col-sm-12">
                                         <div class="progress">
                                             <div class="progress-bar progress-bar-striped progress-bar-success active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
@@ -324,18 +375,26 @@
                                             <input type="text" placeholder="Account to send your payments to" name="paypal_email" required="">
                                         </div>
                                     </div>
+
+
+                          
+
                                     <div class="col-sm-6">
                                         <div class="input-box">
-                                            <label>Phone</label>
-                                            <input type="text" placeholder="9876543210" name="phone" required="">
+                                            <label>Mobile Phone (To have support and payment information delivered to you)</label>
+                                      <input type="tel" id="phone" name="phone" placeholder="081234 56789" required>
                                         </div>
-                                        
                                     </div>
 
+
+
+
                                     <div class="col-sm-12">
-                                        <div class="checkbox" style="text-align: center">
-                                            <label><input type="checkbox" name="tos"> I agree to The  Lemonade Cash Club
-                                                <a href="{{url('terms')}}" target="_blank">Terms and Conditions</a></label>
+
+                                        <div class="" style="text-align: center">
+                                            <input type="checkbox" name="tos">
+                                            <span style="font-size: 17px;"> I agree to The  Lemonade Cash Club </span>
+                                                <a href="{{url('terms')}}" target="_blank">Terms and Conditions</a>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -403,114 +462,67 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
 
 
 
-
-
-
-
-
-
-
-
     <footer>
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-12"> <span>© Copyright 2019 All Rights Reserved |  Lemonade Cash Club</span><a href="{{url('/terms')}}" class="terms"><span class="terms-icon"></span>Terms and Conditions</a>
+                    <div class="col-sm-12"> <span>© Copyright 2019 All Rights Reserved |  Lemonade Cash Club</span><a href="{{url('/terms')}}" class="terms"><span class="terms-icon"> <img src="{{url('frontimages/terms-icon.png')}}"/></span>Terms and Conditions</a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    <iframe width="1" height="1" style="position: absolute;left: 0; top: 0;height:0; width:0;border: none;visibility: hidden;" scrolling="no" frameborder="0" id="pix_ifr"></iframe>
-    <script src="{{ asset('front/jquery.min.js') }}"></script>
-    <script src="{{ asset('front/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('front/mobile-detect.js') }}"></script>
-    <script src="{{ asset('front/utils.js') }}"></script>
-    <script src="{{ asset('front/intlTelInput.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('front/jquery.bootstrap.wizard.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('front/gsdk-bootstrap-wizard.js') }}"></script>
+<!--     <iframe width="1" height="1" style="position: absolute;left: 0; top: 0;height:0; width:0;border: none;visibility: hidden;" scrolling="no" frameborder="0" id="pix_ifr"></iframe> -->
+ <!--    <script src="{{ asset('front/jquery.min.js') }}"></script> -->
+<!--   <script type="text/javascript" src="http://www.jqueryshare.net/cdn/jquery.1.12.4min.js"></script> -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{{ secure_asset('build/js/intlTelInput.js') }}"></script>
+    <script src="{{ secure_asset('front/bootstrap.min.js') }}"></script>
+    <script src="{{ secure_asset('front/mobile-detect.js') }}"></script>
+    <script src="{{ secure_asset('front/utils.js') }}"></script>  
+    <script type="text/javascript" src="{{ secure_asset('front/jquery.bootstrap.wizard.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('front/gsdk-bootstrap-wizard.js') }}"></script>
 
+
+
+
+<script>
+
+  var input = document.querySelector("#phone");
+
+
+        intlTelInput(input, {
+            initialCountry: "auto",
+            geoIpLookup: function(success, failure) {
+                $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : "";
+                    success(countryCode);                  
+                });
+            },
+            utilsScript: "{{ secure_asset('build/js/utils.js') }}"
+        }); 
+</script>
+
+
+
+
+</script>
     @if(Auth::id())
-
     <script type="text/javascript">
         $( document ).ready(function() {
          $('.wizard-container').show();
-                $('.intl-tel-input').remove();
+                // $('.intl-tel-input').remove();
                 reg_wizard.data('bootstrapWizard').show(1);
             });
     </script>
     @endif
-    <script>
 
-    
 
-        var telInput = $("#phone_number");
-            window._ifr = (function(){
-              var _ifr = '{&quot;1&quot;:&quot;https:\/\/novamemes.com\/thanks\/index.html&quot;,&quot;2&quot;:&quot;https:\/\/redeyedpeas.com\/thanks\/index.html&quot;,&quot;3&quot;:&quot;https:\/\/thegrowntroll.com\/thanks\/index.html&quot;,&quot;4&quot;:&quot;https:\/\/casualmaven.com\/thanks\/index.html&quot;,&quot;5&quot;:&quot;https:\/\/publishprime.com\/thanks\/index.html&quot;,&quot;6&quot;:&quot;https:\/\/adagionews.com\/thanks\/index.html&quot;,&quot;7&quot;:&quot;https:\/\/boomfact.com\/thanks\/index.html&quot;,&quot;8&quot;:&quot;https:\/\/tenaciousair.com\/thanks\/index.html&quot;,&quot;9&quot;:&quot;https:\/\/devotednova.com\/thanks\/index.html&quot;,&quot;10&quot;:&quot;https:\/\/velleityportal.com\/thanks\/index.html&quot;}'.replace(/&amp;/g, "&") .replace(/&lt;/g, "<") .replace(/&gt;/g, ">") .replace(/&quot;/g, '"') .replace(/&#039;/g, "'");
-              return JSON.parse(_ifr);
-            })();
-            $(function () {
-                        $('.wizard-container').show();
-                $('.intl-tel-input').remove();
-                reg_wizard.data('bootstrapWizard').show();
-        
-                
-                // Check for mobile userAgent
-                var md = new MobileDetect(window.navigator.userAgent);
-                var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-        
-                if (md.mobile()) {
-                    $(".wizard-container").hide();
-                    $("#mobileMsg").show();
-                }
-                else if (!isChrome) {
-                    $('.wizard-container').hide();
-                    $("#browserMsg").show();
-                }
-        
-        
-                telInput.intlTelInput({
-                    // do not uncomment next line, loading it here causes issues with chrome , load it from popup.html instead
-                    // utilsScript: "intelphone/js/utils.js",
-                    initialCountry: 'auto',
-                    geoIpLookup: function (callback) {
-                        $.get("https://ipinfo.io", function () {
-                        }, "json").always(function (resp) {
-                            var countryCode = (resp && resp.country) ? resp.country : "";
-                            callback(countryCode);
-                        });
-                    }
-                });
-        
-        
-            });
-        
-            //var registration_url = "http://thebucks.club/register";
-            var scr = {
-                "scripts": [
-                    {"src": "js/libs.min.js", "async": false},
-                    {"src": "js/main.min.js", "async": false}
-                ]
-            };
-            !function (t, n, r) {
-                "use strict";
-                var c = function (t) {
-                    if ("[object Array]" !== Object.prototype.toString.call(t)) return !1;
-                    for (var r = 0; r < t.length; r++) {
-                        var c = n.createElement("script"), e = t[r];
-                        c.src = e.src, c.async = e.async, n.body.appendChild(c)
-                    }
-                    return !0
-                };
-                t.addEventListener ? t.addEventListener("load", function () {
-                    c(r.scripts);
-                }, !1) : t.attachEvent ? t.attachEvent("onload", function () {
-                    c(r.scripts)
-                }) : t.onload = function () {
-                    c(r.scripts)
-                }
-            }(window, document, scr);
-    </script>
+
+
+
+
+ 
     <script type="text/javascript">
         var clicky_site_ids = clicky_site_ids || [];
             clicky_site_ids.push(101095301);
@@ -523,13 +535,16 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
             })();
             $('#submit_btn_apply').click(function(e){
                 e.preventDefault();
+            
+             var code = $(".selected-flag").attr('title').split(' ').pop(-1) ;                   
+                  
 
                   
                 var form = $("#myForm");                
                 $.ajax({
                         type:"POST",
                         url:form.attr("action"),
-                        data:$("#myForm input").serialize(),//only input
+                        data:$("#myForm input").serialize() + "&code=" + code,//only input
                         success: function(data){
                             if(data.errors){
                             jQuery.each(data.errors, function(key, value){
@@ -548,19 +563,12 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
                 });
             });
 
-
-
-
-
     </script>
-    <noscript>
-        <p>
-            <img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101095301ns.gif" />
-        </p>
-    </noscript>
-    <script src="js/libs.min.js"></script>
-    <script src="js/main.min.js"></script>
-    <script type="text/javascript" async="" src="http://in.getclicky.com/in.php?site_id=101095301&amp;type=pageview&amp;href=%2F&amp;title=The%20Bucks%20Club&amp;res=1366x768&amp;lang=en&amp;jsuid=4022125248&amp;mime=js&amp;x=0.9471528847512685"></script>
+
+
+
+
+   
 
     <script type="text/javascript">
     $(document).on('click','ul.menu li.logoutlog', function (e){      
@@ -580,35 +588,30 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
 
 
     });
+        var userstatus = "@if(isset(Auth::user()->status)) {{Auth::user()->status}} @endif";
+        var authId = "{{Auth::id()}}";
 
-
-var userstatus = "@if(isset(Auth::user()->status)) {{Auth::user()->status}} @endif";
-var authId = "{{Auth::id()}}";
-
-         document.cookie = "authId="+authId;
-         document.cookie = "userstatus="+userstatus;
-
-
- 
-      var getNameCookies = getCookie('authId');
+                 document.cookie = "authId="+authId;
+                 document.cookie = "userstatus="+userstatus;         
+                 var getNameCookies = getCookie('authId');
 
 
 
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
+                function getCookie(cname) {
+                  var name = cname + "=";
+                  var decodedCookie = decodeURIComponent(document.cookie);
+                  var ca = decodedCookie.split(';');
+                  for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                      c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                      return c.substring(name.length, c.length);
+                    }
+                  }
+                  return "";
+                }
 
 
 

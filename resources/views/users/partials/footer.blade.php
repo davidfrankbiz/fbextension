@@ -3,7 +3,8 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <span>© Copyright @php echo date('Y'); @endphp All Rights Reserved | Lemonade Cash Club</span><a href="{{url('terms')}}" class="terms"><span class="terms-icon"></span>Terms
+                <span>© Copyright @php echo date('Y'); @endphp All Rights Reserved | Lemonade Cash Club</span><a href="{{url('terms')}}" class="terms"><span class="terms-icon">
+                  <img src="{{url('frontimages/terms-icon.png')}}"/></span>Terms
                     & Conditions</a></div>
         </div>
     </div>
@@ -25,8 +26,7 @@
             success: function (data) { 
 
             console.log(data);  
-            return false; 
-            alert('sdf');         
+                    
 
             }
         });

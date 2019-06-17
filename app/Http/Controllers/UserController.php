@@ -58,7 +58,7 @@ $validator = Validator::make($request->all(), $rules);
             $request['password'] = bcrypt($request->get('password'));
             $request['password_confirmation'] = bcrypt($request->get('password_confirmation'));
 
-            $requst['status'] = 0;
+            $request['status'] = 0;
         
             if(User::create($request->all())){
                 return response()->json([

@@ -76,6 +76,8 @@ class RegisterController extends Controller
 
     public function registeruser(Request $request)
     {
+      
+  
 
        $validator = Validator::make($request->all(), [
            'name' => ['required', 'string', 'max:255'],
@@ -89,6 +91,11 @@ class RegisterController extends Controller
         } else {
                //echo "<pre>"; print_r($request->all()); die();
             $request['password'] = bcrypt($request['password']);
+            $request['status'] = 0;
+
+            $request['phone'] = '+'.$request['code'].$request['phone'];
+           
+            
                 $data = $this->guard()->login(User::create($request->all()));
                 $user = User::where('email', $request['email'])->first();
                 User::where('email',$request['email'])->update(['live' => 1]);

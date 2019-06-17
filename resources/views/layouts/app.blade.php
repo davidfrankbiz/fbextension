@@ -1,20 +1,28 @@
 <head>
     <meta charset="utf-8">
-    <title>The Bucks Club</title>
+    <title>Lemonade Cash Club</title>
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-       <link rel="apple-touch-icon" href="/img/favicon/apple-icon.png">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="{{ secure_asset('frontimages/favi.png') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/img/favicon/apple-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
     <!-- Bootstrap v3.3.4 Grid Styles-->
 
+     <style>
+          .logo img {
+    width: 195%;
+    height: 100px;
+}
+    </style>
+
     <style></style><!-- Load CSS & WebFonts Main Function-->
-    <link rel="stylesheet" href="{{ asset('users/grid.css') }}">  
-    <link rel="stylesheet" href="{{ asset('users/custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('users/min.css') }}">
-    <link rel="stylesheet" href="{{ asset('users/header.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('users/main.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('users/grid.css') }}">  
+    <link rel="stylesheet" href="{{ secure_asset('users/custom.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('users/min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('users/header.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('users/main.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"
           integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
@@ -31,7 +39,7 @@
             display: none;
         }
     </style>
-    <link rel="stylesheet" href="{{ asset('front/intlTelInput.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('front/intlTelInput.css') }}">
     <style>
         .iti-flag {
             background-image: url("{{url('/frontimages/flags.png')}}");
@@ -77,7 +85,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-7 col-md-9 col-lg-9">
                         <ul class="menu">
-                            <li><a href="javascript:void(0)">Home</a>
+                            <li><a href="{{url('/')}}">Home</a>
                             </li>
                             <li><a class="page-scroll _mPS2id-h" href="{{url('/')}}">About</a>
                             </li>
@@ -119,13 +127,13 @@
         </div>
     </footer>
     <iframe width="1" height="1" style="position: absolute;left: 0; top: 0;height:0; width:0;border: none;visibility: hidden;" scrolling="no" frameborder="0" id="pix_ifr"></iframe>
-    <script src="{{ asset('front/jquery.min.js') }}"></script>
-    <script src="{{ asset('front/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('front/mobile-detect.js') }}"></script>
-    <script src="{{ asset('front/utils.js') }}"></script>
-    <script src="{{ asset('front/intlTelInput.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('front/jquery.bootstrap.wizard.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('front/gsdk-bootstrap-wizard.js') }}"></script>
+    <script src="{{ secure_asset('front/jquery.min.js') }}"></script>
+    <script src="{{ secure_asset('front/bootstrap.min.js') }}"></script>
+    <script src="{{ secure_asset('front/mobile-detect.js') }}"></script>
+    <script src="{{ secure_asset('front/utils.js') }}"></script>
+    <script src="{{ secure_asset('front/intlTelInput.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('front/jquery.bootstrap.wizard.js') }}"></script>
+    <script type="text/javascript" src="{{ secure_asset('front/gsdk-bootstrap-wizard.js') }}"></script>
 
     @if(Auth::id())
     <script type="text/javascript">

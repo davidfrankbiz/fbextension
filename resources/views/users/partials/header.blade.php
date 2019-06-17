@@ -11,10 +11,10 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="shortcut icon" href="/assets/images/favicon_fbd.png?1" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/img/favicon/apple-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+        <link rel="shortcut icon" href="{{ asset('frontimages/favi.png') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ asset('frontimages/apple-icon.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('frontimages/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('frontimages/favicon/apple-icon-114x114.png') }}">
     <!-- Bootstrap v3.3.4 Grid Styles-->
 
     <style></style><!-- Load CSS & WebFonts Main Function-->
@@ -65,7 +65,13 @@
             }
         }
 
+  
+         .logo img {
+    width: 195%;
+    height: 100px;
+}
     </style>
+
 
     <script type="text/javascript" src="{{ asset('users/clipboard.min.js') }}"></script>
 
@@ -95,6 +101,8 @@
         .alert-info {
             color: #34C2EB;
         }
+
+
     </style>
 </head>
 <body>
@@ -133,7 +141,7 @@
             <div class="header-top-wrapper">
                 <div class="row">
                     <div class="col-sm-3 hidden-xs">
-                        <div class="logo"><a href="{{url('/')}}"><img src="{{url('users/logo_fbd.png')}}" alt="The Bucks Club"
+                        <div class="logo"><a href="{{url('/')}}"><img src="{{url('frontimages/logo_fbd.png')}}" alt="Lemonade Cash Club"
                                                            style="border: none"></a></div>
                     </div>
                     <div class="col-sm-9 col-xs-12">
