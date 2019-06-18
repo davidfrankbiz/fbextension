@@ -1,17 +1,15 @@
-​<head>
+​<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
     <meta charset="utf-8">
-     <title>Lemonade Cash Club</title> 
+    <title> Lemonade Cash Club</title>
+    <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">   
-
-    <link rel="shortcut icon" href="{{ secure_asset('frontimages/favi.png'.'def=abcdefghijklmn') }}" type="image/x-icon" >
-
-
-
-
-    <link rel="apple-touch-icon" href="/img/favicon/apple-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="shortcut icon" href="{{ asset('frontimages/favi.png') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ asset('frontimages/apple-icon.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('frontimages/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('frontimages/favicon/apple-icon-114x114.png') }}">
     <!-- Bootstrap v3.3.4 Grid Styles-->
 
      <style>
@@ -87,7 +85,6 @@ input[type="checkbox"] {
         }
     </style>
 
-<script type="text/javascript" async="" src="//static.getclicky.com/js"></script>
 </head>
 <body>
 
