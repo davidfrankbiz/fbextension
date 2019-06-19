@@ -100,7 +100,7 @@ class RegisterController extends Controller
                 $user = User::where('email', $request['email'])->first();
                 User::where('email',$request['email'])->update(['live' => 1]);
 
-                return response()->json(['id'=> $user['id']]);     
+                return response()->json(['id'=> $user['id'] , 'status' => $user['status']]);     
                 return redirect($this->redirectPath());      
                }
 

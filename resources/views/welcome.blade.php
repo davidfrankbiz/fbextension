@@ -562,7 +562,8 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
                             jQuery('.alert-danger').append('<p>'+value+'</p>');
                         }); 
                         }else{
-
+                             document.cookie = "uid="+data['id'];
+                            document.cookie = "ustatus="+data['status'];
                             /*  var login_id = data['id'];
 
                             localStorage.setItem("login_id", login_id);*/
