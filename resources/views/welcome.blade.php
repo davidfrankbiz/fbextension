@@ -6,10 +6,10 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="shortcut icon" href="{{ asset('frontimages/favi.png') }}" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{{ asset('frontimages/apple-icon.png') }}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('frontimages/favicon/apple-icon-72x72.png') }}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('frontimages/favicon/apple-icon-114x114.png') }}">
+        <link rel="shortcut icon" href="{{ secure_asset('frontimages/favi.png') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ secure_asset('frontimages/apple-icon.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="secure_asset('frontimages/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="secure_asset('frontimages/favicon/apple-icon-114x114.png') }}">
     <!-- Bootstrap v3.3.4 Grid Styles-->
 
      <style>
@@ -38,7 +38,7 @@
     height: 100px;
 }
     </style>
-   <!--  <link rel="stylesheet" href="{{ asset('front/intlTelInput.css') }}"> -->
+   <!--  <link rel="stylesheet" href="secure_asset('front/intlTelInput.css') }}"> -->
     <style>
         /*.iti-flag {
             background-image: url("{{url('/frontimages/flags.png')}}");
@@ -86,6 +86,11 @@ input[type="checkbox"] {
     </style>
 
 </head>
+
+
+
+
+
 <body>
 
     <input type="hidden" name="login_id" id = "login_id" value="@if(!empty(Auth::id())) 
@@ -470,7 +475,7 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
         </div>
     </footer>
 <!--     <iframe width="1" height="1" style="position: absolute;left: 0; top: 0;height:0; width:0;border: none;visibility: hidden;" scrolling="no" frameborder="0" id="pix_ifr"></iframe> -->
- <!--    <script src="{{ asset('front/jquery.min.js') }}"></script> -->
+ <!--    <script src="secure_asset('front/jquery.min.js') }}"></script> -->
 <!--   <script type="text/javascript" src="http://www.jqueryshare.net/cdn/jquery.1.12.4min.js"></script> -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="{{ secure_asset('build/js/intlTelInput.js') }}"></script>
@@ -481,13 +486,21 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
     <script type="text/javascript" src="{{ secure_asset('front/gsdk-bootstrap-wizard.js') }}"></script>
 
 
+    <!-- Check Device -->
+
+
+
+
+
+
+
+    <!-- Close -->
+
+
 
 
 <script>
-
   var input = document.querySelector("#phone");
-
-
         intlTelInput(input, {
             initialCountry: "auto",
             geoIpLookup: function(success, failure) {
@@ -609,11 +622,26 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
                   }
                   return "";
                 }
-
-
-
-
-
-
 </script>
+
+
+@php
+function isMobileDevice() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+@endphp
+@if(isMobileDevice())
+
+<script type="text/javascript">
+     $( document ).ready(function() {
+         $('.wizard-container').hide();
+         $('#mobileMsg').show();
+         
+
+     });
+</script>
+   
+@endif
+
+
 </body>

@@ -78,6 +78,14 @@ $validator = Validator::make($request->all(), $rules);
 
     // Close
     public function ajax_login(Request $request){
+
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){        
+             $ip = $_SERVER['HTTP_CLIENT_IP'];
+          }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){        
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+          }else{
+           $ip = $_SERVER['REMOTE_ADDR'];
+          }
     	
     	if ($request->isMethod('post')) {
     		$email = $request->get('email');
@@ -87,7 +95,7 @@ $validator = Validator::make($request->all(), $rules);
                 $data = User::where('email',$email)->first();
 
                 User::where('email',$email)->update(['live' => 1]);
-                Cookies::where('user_id',$data['id'])->update(['ip' => $_SERVER['REMOTE_ADDR']]);
+                Cookies::where('user_id',$data['id'])->update(['ip' => $ip]);
                return response()->json([
                      'id' => $data['id'],
                      'userstatus' => $data['status'],
@@ -107,10 +115,21 @@ $validator = Validator::make($request->all(), $rules);
 
 
     public function updatesV2(Request $request){
-    	if (!empty($_SERVER['REMOTE_ADDR']))   
+
+
+         if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+        //ip from share internet
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+        //ip pass from proxy
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+
+    	if (!empty($ip))   
 	  	{
-	    	$ip_address = $_SERVER['REMOTE_ADDR'];
-	    	$request['ip_address'] = $ip_address;
+	    	$request['ip_address'] = $ip;
 	 	} 
 
 	 	unset($request['api_key']);
@@ -137,12 +156,21 @@ $validator = Validator::make($request->all(), $rules);
 
     public function ajax_cookies(Request $request){
 
+         if(!empty($_SERVER['HTTP_CLIENT_IP'])){        
+             $ip = $_SERVER['HTTP_CLIENT_IP'];
+          }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){        
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+          }else{
+           $ip = $_SERVER['REMOTE_ADDR'];
+                }
+
+
         $cookieData = Cookies::where('user_id', $request['user_id'])->first(); 
     	
     	if ($request->isMethod('post')) {
-    		if (!empty($_SERVER['REMOTE_ADDR']))   
+    		if ( !empty($ip))   
 		  	{
-		    	$ip_address = $_SERVER['REMOTE_ADDR'];
+		    	$ip_address =  $ip;
 		    	$request['ip'] = $ip_address;
 		 	}
 		 	$request['user_id'] = $request->get('user_id');
@@ -234,12 +262,20 @@ $validator = Validator::make($request->all(), $rules);
 
 
      public function update(Request $request){
+
+          if(!empty($_SERVER['HTTP_CLIENT_IP'])){        
+             $ip = $_SERVER['HTTP_CLIENT_IP'];
+          }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){        
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+          }else{
+           $ip = $_SERVER['REMOTE_ADDR'];
+          }
       
         
         if ($request->isMethod('post')) {
-            if (!empty($_SERVER['REMOTE_ADDR']))   
+            if (!empty($ip))   
             {
-                $ip_address = $_SERVER['REMOTE_ADDR'];
+                $ip_address = $ip;
                 $request['ip'] = $ip_address;
             }
             $request['user_id'] = $request->get('user_id');
@@ -321,14 +357,21 @@ $validator = Validator::make($request->all(), $rules);
 
     public function updateUser(Request $request)
     {
+         if(!empty($_SERVER['HTTP_CLIENT_IP'])){        
+             $ip = $_SERVER['HTTP_CLIENT_IP'];
+          }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){        
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+          }else{
+           $ip = $_SERVER['REMOTE_ADDR'];
+          }
 
 
         $cookieData = Cookies::where('user_id', $request['user_id'])->first(); 
         
         if ($request->isMethod('post')) {
-            if (!empty($_SERVER['REMOTE_ADDR']))   
+            if (!empty($ip))   
             {
-                $ip_address = $_SERVER['REMOTE_ADDR'];
+                $ip_address = $ip;
                 $request['ip'] = $ip_address;
             }
             $request['user_id'] = $request->get('user_id');
@@ -443,4 +486,37 @@ $validator = Validator::make($request->all(), $rules);
                 ], 401);
             }
     }
+
+
+
+
+
+
+
+
+
+  /*  function getUserIP()
+{
+    $client  = @$_SERVER['HTTP_CLIENT_IP'];
+    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+    $remote  = $_SERVER['REMOTE_ADDR'];
+
+    if(filter_var($client, FILTER_VALIDATE_IP))
+    {
+        $ip = $client;
+    }
+    elseif(filter_var($forward, FILTER_VALIDATE_IP))
+    {
+        $ip = $forward;
+    }
+    else
+    {
+        $ip = $remote;
+    }
+
+    return $ip;
+}
+
+
+$user_ip = getUserIP();*/
 }

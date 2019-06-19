@@ -40,4 +40,8 @@ return [
         ],
     ],
 
+   'ipinfo' => [
+      'access_token' => env('bfc6fd80781b1d'),
+  ],
+
 ];

