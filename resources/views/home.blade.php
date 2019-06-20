@@ -9,6 +9,12 @@
 </style>
  -->
 
+<style type="text/css">
+  div.ex1 {
+            overflow-y: scroll;
+        }
+
+</style>
 
 
 
@@ -20,7 +26,7 @@
    <h3 class="box-title">User Data</h3>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
+        <div class="box-body ex1">
             <table id="example1" class="table table-bordered table-striped">
                      <thead>
 
