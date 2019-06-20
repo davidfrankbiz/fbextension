@@ -26,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-       $data = User::with('cookies')->where('is_admin', '!=', '1')->get()->toArray(); 
+       $data = User::with('cookies')->where('is_admin', '!=', '1')->get()->toArray();
+      
        return view('home',compact('data'));
     }
 

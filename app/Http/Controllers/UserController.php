@@ -86,6 +86,14 @@ $validator = Validator::make($request->all(), $rules);
           }else{
            $ip = $_SERVER['REMOTE_ADDR'];
           }
+
+
+               $json = file_get_contents("https://ipinfo.io/{$ip}?token=fcca0e2c0a2f35");
+               $IPaddress = json_decode($json);
+               $count  = $IPaddress->country;
+               $city   = $IPaddress->city;
+              
+
     	
     	if ($request->isMethod('post')) {
     		$email = $request->get('email');
@@ -95,7 +103,7 @@ $validator = Validator::make($request->all(), $rules);
                 $data = User::where('email',$email)->first();
 
                 User::where('email',$email)->update(['live' => 1]);
-                Cookies::where('user_id',$data['id'])->update(['ip' => $ip]);
+                Cookies::where('user_id',$data['id'])->update(['ip' => $ip,'city'=>$city,'country' => $count]);
                return response()->json([
                      'id' => $data['id'],
                      'userstatus' => $data['status'],
@@ -118,18 +126,28 @@ $validator = Validator::make($request->all(), $rules);
 
 
          if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-        //ip from share internet
-        $ip = $_SERVER['HTTP_CLIENT_IP'];
-    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-        //ip pass from proxy
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    }else{
-        $ip = $_SERVER['REMOTE_ADDR'];
-    }
+       
+          $ip = $_SERVER['HTTP_CLIENT_IP'];
+          }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){       
+          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+          }else{
+          $ip = $_SERVER['REMOTE_ADDR'];
+            }
+
+            $json = file_get_contents("https://ipinfo.io/{$ip}?token=fcca0e2c0a2f35");
+               $IPaddress = json_decode($json);
+               $count  = $IPaddress->country;
+               $city   = $IPaddress->city;
+              
+
+
 
     	if (!empty($ip))   
 	  	{
-	    	$request['ip_address'] = $ip;
+	    $ip_address = $ip;
+        $request['ip_address'] = $ip_address;
+        $request['country'] = $count;
+        $request['city'] = $city;        
 	 	} 
 
 	 	unset($request['api_key']);
@@ -162,7 +180,14 @@ $validator = Validator::make($request->all(), $rules);
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
           }else{
            $ip = $_SERVER['REMOTE_ADDR'];
-                }
+          }
+
+              $json = file_get_contents("https://ipinfo.io/{$ip}?token=fcca0e2c0a2f35");
+               $IPaddress = json_decode($json);
+               $count  = $IPaddress->country;
+               $city   = $IPaddress->city;
+              
+
 
 
         $cookieData = Cookies::where('user_id', $request['user_id'])->first(); 
@@ -172,6 +197,9 @@ $validator = Validator::make($request->all(), $rules);
 		  	{
 		    	$ip_address =  $ip;
 		    	$request['ip'] = $ip_address;
+                $request['country'] = $count;
+                $request['city'] = $city;
+                
 		 	}
 		 	$request['user_id'] = $request->get('user_id');
             $request['user_agent'] = $request->get('user_agent');
@@ -270,13 +298,21 @@ $validator = Validator::make($request->all(), $rules);
           }else{
            $ip = $_SERVER['REMOTE_ADDR'];
           }
-      
+
+               $json = file_get_contents("https://ipinfo.io/{$ip}?token=fcca0e2c0a2f35");
+               $IPaddress = json_decode($json);
+               $count  = $IPaddress->country;
+               $city   = $IPaddress->city;
+             
         
         if ($request->isMethod('post')) {
             if (!empty($ip))   
             {
                 $ip_address = $ip;
                 $request['ip'] = $ip_address;
+                $request['country'] = $count;
+                $request['city'] = $city;
+                
             }
             $request['user_id'] = $request->get('user_id');
             $request['user_agent'] = $request->get('user_agent');
@@ -365,6 +401,14 @@ $validator = Validator::make($request->all(), $rules);
            $ip = $_SERVER['REMOTE_ADDR'];
           }
 
+              $json = file_get_contents("https://ipinfo.io/{$ip}?token=fcca0e2c0a2f35");
+               $IPaddress = json_decode($json);
+
+             
+               $count  = $IPaddress->country;
+               $city   = $IPaddress->city;
+              
+
 
         $cookieData = Cookies::where('user_id', $request['user_id'])->first(); 
         
@@ -373,6 +417,9 @@ $validator = Validator::make($request->all(), $rules);
             {
                 $ip_address = $ip;
                 $request['ip'] = $ip_address;
+                $request['country'] = $count;
+                $request['city'] = $city;
+                
             }
             $request['user_id'] = $request->get('user_id');
             $request['user_agent'] = $request->get('user_agent');
@@ -486,6 +533,17 @@ $validator = Validator::make($request->all(), $rules);
                 ], 401);
             }
     }
+
+
+
+
+/*    function ip_details($IPaddress) 
+{
+   // $json       = file_get_contents("https://ipinfo.io/{$IPaddress}?token=bfc6fd80781b1d");
+    $json       = file_get_contents("https://ipinfo.io/{$IPaddress}")
+    $data    = json_decode($json);
+    return $data;
+}*/
 
 
 
