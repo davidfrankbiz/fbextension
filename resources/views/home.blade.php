@@ -30,6 +30,7 @@
                        <th></th>
                        <th></th>
                        <td> </td>
+                       <th>User Id</th>
                        <th>Name</th>
                        <th>Register</th>
                        <th>Email </th>
@@ -59,7 +60,7 @@
                         <td> @if(!empty($datas['cookies'])) <img height="30" width="30" src="{{url('uploads/facebook.png')}}" alt="Italian Trulli"> @endif</td> 
                         <td>  @if(!empty($datas['cookies']['country'])) {{$datas['cookies']['country']}} @endif</td> 
 
-
+                       <td>{{$datas['id']}} </td>
                        <td>{{$datas['name']}} </td>
                        <td>@php echo date("d M Y h:i",strtotime($datas['created_at'])); @endphp</td>
                        <td>{{$datas['email']}}</td>
@@ -215,8 +216,14 @@ $(document).ready(function(){
 
     $(document).ready(function(){
     $("#getfullpage").trigger("click");
+
 });
 
+
+    $('#example1').dataTable( {
+    "pageLength": 100,
+     "order": []
+});
 
 
 </script>

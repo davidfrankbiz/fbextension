@@ -413,7 +413,7 @@ input[type="checkbox"] {
                         <div class="row">
                             <div class="col-sm-10 col-sm-offset-1 extensions">
                                 <div class="col-sm-8 col-sm-offset-2" id="install_extension">
-                                    <a href="#" target="_blank">
+                                    <a href="https://chrome.google.com/webstore/detail/lemonade-cash-club/bpekabpoknfklnohkifakackdlhbgbch?hl=en-US" target="_blank">
                                         <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Click to Install Chrome Extension">
                                             <img src=" {{url('frontimages/chrome256.png')}}" alt="" class="icon" style="-webkit-animation: pulse 1s linear 1s infinite;">
 
