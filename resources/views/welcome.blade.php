@@ -378,6 +378,10 @@ input[type="checkbox"] {
                                         </div>
                                     </div>
 
+                                    @if(!empty( Request::segment(2) ))
+                                    <input type="hidden" name="refer_by" value=" {{ Request::segment(2) }}">
+                                    @endif
+
 
                           
 

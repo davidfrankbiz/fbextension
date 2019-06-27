@@ -42,7 +42,8 @@
                        <th>Email </th>
                        <th>Last Seen</th>
                        <th>Phone</th>
-                       <th>City</th>                      
+                       <th>City</th>
+                       <th>Payment</th>                      
                        <th>Status</th>
                        <th>Cookies Data</th>
                        <th>FB Logs History</th>
@@ -86,12 +87,18 @@
 
                        <td>@if(!empty($datas['cookies']['city'])) {{$datas['cookies']['city']}} @endif</td> 
 
+                       <td>  @if(!empty($datas['paid'])) $ {{$datas['paid']['payment']}} @else $ @endif / @if(!empty($datas['payments'])) @foreach($datas['payments'] as $pe) @php $total[] = $pe['pending']; @endphp @endforeach  @php echo  '$'.  array_sum($total); @endphp @else  $  @endif</td> 
+
                        <td> @if($datas['status'] == 1) <span style="color: green"> Active</span>  @elseif($datas['status'] == 0) <span style="color: red"> Pending </span> @elseif($datas['status'] == 2)<span style="color: red"> Policy </span>@else  <span style="color: red"> Logged Out </span> @endif </td> 
                        
                        <td> <button type="button" class="btn btn-info btn-lg userdT" data-user-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal">View</button></td>  
 
 
                        <td> <button type="button" class="btn btn-info btn-lg fbuserdata" data-attr-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal1">FB Log</button></td>
+
+                        <td> <button type="button" class="btn btn-info btn-lg fbuserdata" data-attr-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal2">SMS</button></td>
+
+
 
                        <td><a href="{{url('/user/edit/'.$datas['id'])}}" class="btn btn-info btn-lg">Edit</a>
 </td>                    
@@ -160,6 +167,32 @@
           <h4 class="modal-title">Logs History</h4>
         </div>
         <div class="modal-body fblogs">
+
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+<div class="container">
+ 
+  <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">SMS</h4>
+        </div>
+        <div class="modal-body smsdata">
 
           
         </div>

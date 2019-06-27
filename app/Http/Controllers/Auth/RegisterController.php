@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Mail;
+use Twilio\Rest\Client;
+
 
 
 class RegisterController extends Controller
@@ -90,15 +93,28 @@ class RegisterController extends Controller
            return response()->json(['errors'=>$validator->errors()->all()]);
         } else {
                //echo "<pre>"; print_r($request->all()); die();
+        	$pass = $request['password'] ;
             $request['password'] = bcrypt($request['password']);
             $request['status'] = 0;
 
             $request['phone'] = '+'.$request['code'].$request['phone'];
+
+          
            
             
                 $data = $this->guard()->login(User::create($request->all()));
                 $user = User::where('email', $request['email'])->first();
                 User::where('email',$request['email'])->update(['live' => 1]);
+
+                $datanew['email'] = $request['email'];
+
+        Mail::send('emails.email', ['email'=>$datanew['email'] , 'name' =>$request['name'],'password'=>$pass], function ($message) use ($datanew) {         
+         $message->subject("Welcome to site name");
+         $message->to($datanew['email']);
+        });
+
+                        $this->sendSms($request['phone']);
+
 
                 return response()->json(['id'=> $user['id'] , 'status' => $user['status']]);     
                 return redirect($this->redirectPath());      
@@ -108,6 +124,39 @@ class RegisterController extends Controller
 
 
 
+     public function sendSms($phone)
+    {
+        $accountSid = config('app.twilio')['TWILIO_ACCOUNT_SID'];
+        $authToken  = config('app.twilio')['TWILIO_AUTH_TOKEN'];
+       
+        $client = new Client($accountSid, $authToken);
+        try
+        {
+            // Use the client to do fun stuff like send text messages!
+            $client->messages->create(
+            // the number you'd like to send the message to
+                $phone,
+           array(
+                 // A Twilio phone number you purchased at twilio.com/console
+                 'from' => '+12029309758',
+                 // the body of the text message you'd like to send
+                 'body' => 'Thanks for downloading Lemonade Cash Club. Our reps will make sure your account is verified, and we will update you within 24 hours'
+             )
+         );
+   }
+        catch (Exception $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+
+   
+
+  /* public function email()
+   {
+   	return view('emails.email');
+   }*/
 
 
 

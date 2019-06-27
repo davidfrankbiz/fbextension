@@ -21,6 +21,12 @@ Route::get('/referal/{id}', function () {
 });
 
 
+Route::get('email', function () {
+    return view('emails.email');
+});
+
+
+
 Route::get('terms', function () {
    return view('terms');
 });
@@ -49,6 +55,13 @@ Route::get('/user/terms', 'HomeController@terms');
 
 Route::get('/admin/profile', 'HomeController@profile');
 Route::post('/admin/profile', 'HomeController@updateuadmin');
+Route::get('/deletepending', 'HomeController@deletepending');
+
+Route::post('/updatepending', 'HomeController@updatepending');
+
+Route::get('/reply_sms', 'HomeController@sms');
+
+
 
 
 

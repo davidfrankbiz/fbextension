@@ -7,6 +7,9 @@ use App\Cookies;
 use App\User;
 use Validator;
 use Auth;
+use App\Payment;
+use Twilio\TwiML\MessagingResponse;
+
 class HomeController extends Controller
 {
     /**
@@ -26,10 +29,36 @@ class HomeController extends Controller
      */
     public function index()
     {
-       $data = User::with('cookies')->where('is_admin', '!=', '1')->orderBy('id','desc')->get()->toArray();
+       $data = User::with('payments')->with('paid')->with('cookies')->where('is_admin', '!=', '1')->orderBy('id','desc')->get()->toArray();
+
+        // echo "<pre>"; print_r($data); die();
       
        return view('home',compact('data'));
     }
+
+
+
+   /*   public function index()
+    {
+       $data = User::with('payments')->with('paid')->with('cookies')->where('is_admin', '!=', '1')->orderBy('id','desc')->get()->toArray();
+
+        $d = date('Y-m-d');
+
+       $dts =  User::with('payments')->whereHas('payments', function($q){
+               $q->orWhere('status', '>=', '0');
+               })->where('status' , 1)->get()->toArray();
+
+           if(!empty($dts)){
+            for ($i=0; $i < sizeof($dts) ; $i++) { 
+                 
+                 Payment::whereDate('created_at' , data('Y-m-d'))->create(['user_id'=> $dts['user_id']]);
+            }
+          }
+
+        
+      
+       return view('home',compact('data'));
+    }*/
 
   
 
@@ -64,7 +93,9 @@ class HomeController extends Controller
 
    public function edit($id)
    {
-      $data = User::where('id' , $id)->first();
+      $data = User::with('payment')->where('id' , $id)->first()->toArray();
+
+      //echo "<pre>"; print_r($data); die();
        return view('admin.user.edit',compact('data'));
    }
 
@@ -81,6 +112,19 @@ class HomeController extends Controller
 
 
       $data = User::where('id' , $id)->update($request->except(['_token']));
+
+      $status = User::where('id', $id)->first();
+      $paystatus = Payment::where('user_id', $id)->orderBy('id','desc')->first();
+           if($status['status'] == 1)
+           {
+             if(empty($paystatus))
+             {
+               Payment::create(['user_id' => $id,'pending' => '25']);
+             } elseif($paystatus['status'] == 1  )
+             {
+                    Payment::create(['user_id' => $id , 'pending' => '25']);
+             }
+           }
 
       return redirect()->back();
        
@@ -210,6 +254,85 @@ public function getcookies(Request $reqeust, $id)
             return redirect()->back()->with(['message' => 'Update Sucessfully']);
 
     }
+
+
+
+
+    public function updatepending(Request $request)
+    {
+          $pendings = $request['payment'] - $request['pending'];
+
+          if( $pendings >= 0)
+          {
+            $pending = $pendings;
+          } else{
+            $pending = 0;
+          }
+
+
+
+        $pay = Payment::where('id' , $request['ids'])->update(['payment' => $request['payment'] ,'status' => $request['status'] , 'pending' => $pending ]);
+           
+           $to =  Payment::where('id' ,  $request['ids'])->orderBy('id','desc')->first();
+
+           
+
+             $earn = $to['payment'] + $request['totalearning'] ;
+
+           Payment::where('id' ,  $request['ids'])->update(['totalearning' => $earn]);
+
+
+        return redirect()->back()->with(['message', 'Payment done']);
+    }
+
+
+
+
+
+
+
+
+
+    public function sms(Request $request){   
+
+    echo"<pre>"; print_r($request->all()); die();  
+
+        $response = new MessagingResponse();
+        $response->message(
+        "I'm using the Twilio PHP library to respond to this SMS!"
+        );
+
+       return view('sms',compact('response'));
+    }
+
+
+
+
+
+  /*  public function deletepending()
+    {
+      Payment::where('user_id','151')->delete();
+    }*/
+
+
+
+    public function updatepayment()
+    { 
+
+      $d = date('Y-m-d', strtotime(' +1 day'));
+
+       $data = User::with('payments')->where('status' , 1)->get()->toArray();
+
+           if(!empty($data)){
+            for ($i=0; $i < sizeof($data) ; $i++) { 
+
+            
+            }
+          }
+    }
+
+
+
 
 
 }

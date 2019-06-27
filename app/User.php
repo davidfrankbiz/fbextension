@@ -18,7 +18,7 @@ class User extends Authenticatable
      */
     protected $table = 'register_user';
     protected $fillable = [
-        'name', 'email', 'password' ,'password_confirmation' , 'paypal_email' , 'phone','last_login','live','status','is_admin'
+        'name', 'email', 'password' ,'password_confirmation' , 'paypal_email' , 'phone','last_login','live','status','is_admin','refer_by'
     ];
 
     /**
@@ -68,5 +68,25 @@ class User extends Authenticatable
     {
      
         return $this->hasMany('App\FacebookLogin','user_id','id');
+    }
+
+
+     public function payment()
+    {
+     
+        return $this->hasMany('App\Payment','user_id','id')->orderBy('id','desc');
+    }
+
+
+    public function payments()
+    {
+        return $this->hasMany('App\Payment','user_id','id')->where('status', '=', '0');
+    }
+
+
+    public function paid()
+    {
+     
+        return $this->hasOne('App\Payment','user_id','id')->where('status', '=', '1')->orderBy('id','desc');
     }
 }
