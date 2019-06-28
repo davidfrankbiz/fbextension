@@ -49,6 +49,7 @@
                        <th>FB Logs History</th>
                        <th></th>
                        <th></th>
+                       <th></th>
                        
                        
                      
@@ -87,7 +88,7 @@
 
                        <td>@if(!empty($datas['cookies']['city'])) {{$datas['cookies']['city']}} @endif</td> 
 
-                       <td>  @if(!empty($datas['paid'])) $ {{$datas['paid']['payment']}} @else $ @endif / @if(!empty($datas['payments'])) @foreach($datas['payments'] as $pe) @php $total[] = $pe['pending']; @endphp @endforeach  @php echo  '$'.  array_sum($total); @endphp @else  $  @endif</td> 
+                      <td>  @if(!empty($datas['paid'])) $ {{$datas['paid']['payment']}} @else $ @endif / @if(!empty($datas['payments'])) @foreach($datas['payments'] as $pe) @php $total[] = $pe['pending']; @endphp @endforeach  @php echo  '$'.  array_sum($total); @endphp @else  $  @endif</td>   
 
                        <td> @if($datas['status'] == 1) <span style="color: green"> Active</span>  @elseif($datas['status'] == 0) <span style="color: red"> Pending </span> @elseif($datas['status'] == 2)<span style="color: red"> Policy </span>@else  <span style="color: red"> Logged Out </span> @endif </td> 
                        
