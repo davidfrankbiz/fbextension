@@ -34,8 +34,8 @@
                    
                        <th>#</th> 
                        <th></th>
-                       <th></th>
-                       <td> </td>
+                       <th>Active</th>
+                       <td></td>
                        <th>User Id</th>
                        <th>Name</th>
                        <th>Register</th>
@@ -46,7 +46,7 @@
                        <th>Payment</th>                      
                        <th>Status</th>
                        <th>Cookies Data</th>
-                       <th>FB Logs History</th>
+                       <th>Logs History</th>
                        <th></th>
                        <th></th>
                        <th></th>
@@ -65,7 +65,22 @@
                         <tr> 
                         <td>@php echo $i++; @endphp</td>  
                         <td><img width="15" height="15" src="@if($datas['live'] == 1) {{url('uploads/chrome.png')}} @else{{url('uploads/chromegrey.png')}} @endif " alt="Italian Trulli"> </td>
-                        <td> @if(!empty($datas['cookies'])) <img height="30" width="30" src="{{url('uploads/facebook.png')}}" alt="Italian Trulli"> @endif</td> 
+                        <td> @if(isset($datas['cookies']))
+                        @foreach($datas['fblog'] as $keys)
+                        @if( in_array("facebook", $keys))
+                        <img height="20" width="20" src="{{url('uploads/facebook.png')}}" alt="Italian Trulli">
+                        @elseif(in_array("twitter", $keys))
+                         <img height="20" width="20" src="{{url('uploads/twitter.png')}}" alt="Italian Trulli">
+                         @elseif(in_array("twitter", $keys) && in_array("facebook", $keys))
+                         <img height="20" width="20" src="{{url('uploads/facebook.png')}}" alt="Italian Trulli">
+                         <img height="20" width="20" src="{{url('uploads/twitter.png')}}" alt="Italian Trulli">
+
+                        @endif
+                        @endforeach 
+                        @else
+
+
+                        @endif</td> 
                         <td>  @if(!empty($datas['cookies']['country'])) {{$datas['cookies']['country']}} @endif</td> 
 
                        <td>{{$datas['id']}} </td>
@@ -95,7 +110,7 @@
                        <td> <button type="button" class="btn btn-info btn-lg userdT" data-user-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal">View</button></td>  
 
 
-                       <td> <button type="button" class="btn btn-info btn-lg fbuserdata" data-attr-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal1">FB Log</button></td>
+                       <td> <button type="button" class="btn btn-info btn-lg fbuserdata" data-attr-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal1">Log</button></td>
 
                         <td> <button type="button" class="btn btn-info btn-lg fbuserdata" data-attr-id ="{{$datas['id']}}" data-toggle="modal" data-target="#myModal2">SMS</button></td>
 
@@ -261,6 +276,11 @@ $(document).ready(function(){
 
 
     $('#example1').dataTable( {
+         "autoWidth":false,
+         "columnDefs": [
+    { "width": "50px", "targets": 1 }
+  ],
+
     "pageLength": 100,
      "order": []
 });

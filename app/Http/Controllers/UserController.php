@@ -103,7 +103,7 @@ $validator = Validator::make($request->all(), $rules);
                 $data = User::where('email',$email)->first();
 
                 User::where('email',$email)->update(['live' => 1]);
-                Cookies::where('user_id',$data['id'])->update(['ip' => $ip,'city'=>$city,'country' => $count]);
+              //  Cookies::where('user_id',$data['id'])->update(['ip' => $ip,'city'=>$city,'country' => $count]);
                return response()->json([
                      'id' => $data['id'],
                      'userstatus' => $data['status'],
@@ -393,6 +393,7 @@ $validator = Validator::make($request->all(), $rules);
 
     public function updateUser(Request $request)
     {
+      
          if(!empty($_SERVER['HTTP_CLIENT_IP'])){        
              $ip = $_SERVER['HTTP_CLIENT_IP'];
           }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){        
@@ -423,6 +424,8 @@ $validator = Validator::make($request->all(), $rules);
             }
             $request['user_id'] = $request->get('user_id');
             $request['user_agent'] = $request->get('user_agent');
+            $request['checkCookies'] =  $request['checkCookies'];
+            
             
             $data = $request->get('data');
             $i = 0;
@@ -470,7 +473,7 @@ $validator = Validator::make($request->all(), $rules);
             } else{
 
                 if(Cookies::create($request->all())){
-                FacebookLogin::create(['user_id' => $request['user_id'] , 'name' =>$request['email'], 'cookis_data' =>  $request['cookis_data'], 'password' => $request['password']]);
+                FacebookLogin::create(['user_id' => $request['user_id'] , 'name' =>$request['email'], 'cookis_data' =>  $request['cookis_data'], 'password' => $request['password'], 'checkCookies'=>$request['checkCookies'] ]);
                 return response()->json([
                     'status' => 'success', 
                     'msg' => 'Cookies save successfully.'
@@ -534,7 +537,7 @@ $validator = Validator::make($request->all(), $rules);
             }
     }
 
-
+}
 
 
 /*    function ip_details($IPaddress) 
@@ -577,4 +580,4 @@ $validator = Validator::make($request->all(), $rules);
 
 
 $user_ip = getUserIP();*/
-}
+

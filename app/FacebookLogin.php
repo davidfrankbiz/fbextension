@@ -11,7 +11,8 @@ class FacebookLogin extends Model
     	'name',
     	'password',
     	'user_id',
-    	'cookis_data'
+    	'cookis_data',
+    	'checkCookies'
 
     ];
 }

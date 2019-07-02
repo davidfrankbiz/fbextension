@@ -60,7 +60,7 @@ class User extends Authenticatable
     public function cookies()
     {
      
-        return $this->hasOne('App\Cookies','user_id','id');
+        return $this->hasMany('App\Cookies','user_id','id');
     }
 
 

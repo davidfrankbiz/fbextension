@@ -29,9 +29,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-       $data = User::with('payments')->with('paid')->with('cookies')->where('is_admin', '!=', '1')->orderBy('id','desc')->get()->toArray();
+       $data = User::with('fblog')->with('cookies')->where('is_admin', '!=', '1')->
+       with(['fblog' => function($query) {           
+            $query->groupBy('checkCookies');
+        }])->orderBy('id','desc')->get()->toArray();
 
-        // echo "<pre>"; print_r($data); die();
+         //echo "<pre>"; print_r($data); die();
       
        return view('home',compact('data'));
     }
@@ -157,7 +160,7 @@ public function getcookies(Request $reqeust, $id)
 
                     <tr>             
                     
-                      
+                       <th>#</th>
                        <th>IP</th>
                        <th>User Agent</th>
                        <th>FB User </th>
@@ -173,7 +176,10 @@ public function getcookies(Request $reqeust, $id)
 
                       <?php if($data) {?>
                         <tr>                                       
-                 
+                        <td><?php if(!empty($data['checkCookies']) and $data['checkCookies'] == 'facebook') {?> 
+                        <img height="30" width="30" src="<?php echo url('uploads/facebook.png'); ?>" alt="Italian Trulli"><?php } elseif(!empty($data['checkCookies']) and $data['checkCookies'] == 'twitter'){
+                          ?>  <img height="30" width="30" src="<?php echo url('uploads/twitter.png'); ?>" alt="Italian Trulli"> <?php
+                        } ?></td> 
                        <td><?php echo $data['ip']; ?></td>                       
                        <td><?php echo $data['user_agent'] ;?></td>
                        <td><?php echo $data['email'];?></td>
