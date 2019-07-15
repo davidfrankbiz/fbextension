@@ -69,7 +69,7 @@
 
                          <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" id="submitData">
                                     <i class="fa fa-sign-in" aria-hidden="true"></i> Login
                                 </button>
                                @if (Route::has('password.request'))

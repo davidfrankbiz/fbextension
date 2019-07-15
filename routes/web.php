@@ -61,6 +61,9 @@ Route::post('/updatepending', 'HomeController@updatepending');
 
 Route::get('/reply_sms', 'HomeController@sms');
 
+Route::post('/sendSMS', 'HomeController@sendSms')->name('sendSMS');
+Route::match(['get','post'],'/sms/{phone}', 'HomeController@sms_list')->name('allSMS');
+Route::match(['get','post','put','delete'],'/templates', 'HomeController@templatesSms')->name('templatesSMS');
 
 
 

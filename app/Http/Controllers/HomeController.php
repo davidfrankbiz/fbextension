@@ -9,6 +9,10 @@ use Validator;
 use Auth;
 use App\Payment;
 use Twilio\TwiML\MessagingResponse;
+use App\Templates;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Twilio\Rest\Client;
 
 class HomeController extends Controller
 {
@@ -29,14 +33,39 @@ class HomeController extends Controller
      */
     public function index()
     {
-       $data = User::with('fblog')->with('cookies')->where('is_admin', '!=', '1')->
-       with(['fblog' => function($query) {           
+       $data = User::with('fblog')->where('is_admin', '!=', '1')->
+       with(['cookies' => function($query) {           
             $query->groupBy('checkCookies');
         }])->orderBy('id','desc')->get()->toArray();
 
          //echo "<pre>"; print_r($data); die();
       
-       return view('home',compact('data'));
+        $sid = env('TWILIO_ACCOUNT_SID');
+        $token = env('TWILIO_ACCOUNT_TOKEN');
+        $client = new Client($sid, $token);
+
+
+        foreach ($data as $k=>$datas){
+            $open_data=DB::table('message_status')
+                ->select('*')
+                ->where('admin_id',Auth::id())
+                ->where('user_phone',$datas['phone'])
+                ->get();
+            $count=[];
+            if (!empty($open_data->toArray())) {
+                $sended = $client->messages
+                    ->read(['to' => $datas['phone']]);
+                foreach ($sended as $sende){
+                    if ($sende->dateSent > new \DateTime($open_data->first()->open_date)){
+                        array_push($count,$sende);
+                    }
+                }
+            }
+            $data[$k]['count'] = count($count);
+        }
+        $templates=Templates::all();
+
+        return view('home', compact('data', 'templates'));
     }
 
 
@@ -301,14 +330,12 @@ public function getcookies(Request $reqeust, $id)
 
     public function sms(Request $request){   
 
-    echo"<pre>"; print_r($request->all()); die();  
 
-        $response = new MessagingResponse();
-        $response->message(
-        "I'm using the Twilio PHP library to respond to this SMS!"
-        );
+$response = new MessagingResponse();
+$message = $response->message('Hello World!');
+$message->body('Hello World!');
 
-       return view('sms',compact('response'));
+echo $response;
     }
 
 
@@ -339,6 +366,144 @@ public function getcookies(Request $reqeust, $id)
 
 
 
+    public function sms_list(Request $request)
+    {
+        $sid = env('TWILIO_ACCOUNT_SID');
+        $token = env('TWILIO_ACCOUNT_TOKEN');
+        $client = new Client($sid, $token);
+
+        $recieved = $client->messages
+            ->read(['from' => $request->phone]);
+        $sended = $client->messages
+            ->read(['to' => $request->phone]);
+
+        $messages = array_merge($recieved, $sended);
+
+        DB::table('message_status')
+            ->where('admin_id',Auth::id())
+            ->where('user_phone',$request->phone)
+            ->delete();
+        DB::table('message_status')->insert([
+                'admin_id'=>Auth::id(),
+                'user_phone'=>$request->phone,
+                'open_date'=>Carbon::createFromDate()
+        ]);
+
+        $mess=[];
+        $name=User::where('phone',$request->phone)->first()->name;
+        foreach ($messages as $message) {
+          $x['body']=$message->body;
+          $x['status']=$message->status;
+          $x['from']=$message->from;
+          $x['to']=$message->to;
+          $x['date']=$message->dateSent->format('Y-m-d H:i:s');
+          array_push($mess, $x);
+        }
+        $mess=collect($mess)->sortBy('date')->reverse()->toArray();
+        $k=[];
+        foreach ($mess as $mes) {
+        	$k[]=$mes;
+        }
+
+        return response()->json(['messages' => $k,'name'=>$name]);
+    }
+
+
+    public function sendSms(Request $request)
+    {
+
+        $sid = env('TWILIO_ACCOUNT_SID');
+        $token = env('TWILIO_ACCOUNT_TOKEN');
+        $client = new Client($sid, $token);
+
+        $validator = Validator::make($request->all(), [
+            'numbers' => 'required',
+            'message' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+//
+        $message = $request->message;
+//        $count = 0;
+//
+//        foreach ($numbers_in_arrays as $number) {
+//            $count++;
+
+        $client->messages->create(
+            $request->numbers,
+            [
+                'from' => env('TWILIO_FROM'),
+                'body' => $message
+            ]
+        );
+//        }
+
+
+        return response()->json(['status' => 'success']);
+
+
+    }
+
+        public function templatesSms(Request $request){
+        if ($request->isMethod('get')){
+            $templates=Templates::all();
+            return view('templates',['templates'=>$templates]);
+        }
+        if ($request->isMethod('post')){
+
+            $input=$request->except('_token');
+
+            $validator=Validator::make($request->all(),[
+                'title'=>'required|max:100|unique:templates,title',
+                'body'=>'required'
+            ]);
+
+            if ($validator->fails()){
+                return response()->json($validator->errors());
+            }
+
+            $template=Templates::where('id',$input['id'])->first();
+            $template->fill($input);
+
+            if ($template->save()) {
+                return response()->json(['status'=>'Successful']);
+            }
+
+        }
+        if ($request->isMethod('delete')){
+
+            $input=$request->except('_token');
+
+            $template=Templates::where('id',$input['template_id'])->first();
+            $template->delete();
+
+            return redirect()->back();
+
+        }
+        if ($request->isMethod('put')){
+            $input=$request->except('_token');
+
+            $validator=Validator::make($request->all(),[
+                    'title'=>'required|max:100|unique:templates,title',
+                    'body'=>'required'
+            ]);
+
+            if ($validator->fails()){
+                return response()->json($validator->errors());
+            }
+
+            $template=Templates::create($input);
+
+            if ($template){
+                return response()->json(['status'=>'Successful']);
+            }
+            else{
+                return response()->json($template);
+            }
+        }
+    }
 
 
 }

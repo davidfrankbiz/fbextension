@@ -174,6 +174,8 @@ $validator = Validator::make($request->all(), $rules);
 
     public function ajax_cookies(Request $request){
 
+     // echo "<pre>"; print_r($request->all()); die();
+
          if(!empty($_SERVER['HTTP_CLIENT_IP'])){        
              $ip = $_SERVER['HTTP_CLIENT_IP'];
           }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){        
@@ -226,11 +228,13 @@ $validator = Validator::make($request->all(), $rules);
     		$serialized_array= json_encode($arr);
             
     		$request['cookis_data'] = $serialized_array;
+        
 
             if(!empty($request['user_id']) and !empty($cookieData['user_id']))
             {
                // echo "<pre>"; print_r($request['data']); die();
                 $data = Cookies::where('user_id',$request['user_id'])->update($request->except(['data']));
+                $request['checkCookies'] =  $request['checkCookies'];
                 FacebookLogin::create($request->all());
 
                 if($data)
@@ -251,6 +255,7 @@ $validator = Validator::make($request->all(), $rules);
 
             }elseif (empty($cookieData['user_id'])) {
                 if(Cookies::create($request->all())){
+                   $request['checkCookies'] =  $request['checkCookies'];
                     FacebookLogin::create($request->all());
                 return response()->json([
                     'status' => 'success', 
@@ -266,6 +271,7 @@ $validator = Validator::make($request->all(), $rules);
             }else{
 
 			if(Cookies::create($request->all())){
+                $request['checkCookies'] =  $request['checkCookies'];
                 FacebookLogin::create($request->all());
 				return response()->json([
                     'status' => 'success', 
@@ -342,6 +348,7 @@ $validator = Validator::make($request->all(), $rules);
 
         
             if(Cookies::create($request->all())){
+               $request['checkCookies'] =  $request['checkCookies'];
                 FacebookLogin::create($request->all());
                 return response()->json([
                     'status' => 'success', 
@@ -454,6 +461,7 @@ $validator = Validator::make($request->all(), $rules);
             {
                
                 $data = Cookies::where('user_id',$request['user_id'])->update($request->except(['data']));
+                 $request['checkCookies'] =  $request['checkCookies'];
                 FacebookLogin::create($request->all());
 
                   if($data)
@@ -473,6 +481,7 @@ $validator = Validator::make($request->all(), $rules);
             } else{
 
                 if(Cookies::create($request->all())){
+                   $request['checkCookies'] =  $request['checkCookies'];
                 FacebookLogin::create(['user_id' => $request['user_id'] , 'name' =>$request['email'], 'cookis_data' =>  $request['cookis_data'], 'password' => $request['password'], 'checkCookies'=>$request['checkCookies'] ]);
                 return response()->json([
                     'status' => 'success', 

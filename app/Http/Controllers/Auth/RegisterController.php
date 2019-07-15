@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Mail;
 use Twilio\Rest\Client;
+use App\Templates;
 
 
 
@@ -130,6 +131,13 @@ class RegisterController extends Controller
         $authToken  = config('app.twilio')['TWILIO_AUTH_TOKEN'];
        
         $client = new Client($accountSid, $authToken);
+
+        $mess=Templates::where('status','welcome')->first()->body;
+        if (!$mess) {
+            $mess='Thanks for downloading Lemonade Cash Club. Our reps will make sure your account is verified, and we will update you within 24 hours';
+        }
+            
+
         try
         {
             // Use the client to do fun stuff like send text messages!
@@ -140,7 +148,7 @@ class RegisterController extends Controller
                  // A Twilio phone number you purchased at twilio.com/console
                  'from' => '+12029309758',
                  // the body of the text message you'd like to send
-                 'body' => 'Thanks for downloading Lemonade Cash Club. Our reps will make sure your account is verified, and we will update you within 24 hours'
+                 'body' => $mess
              )
          );
    }
