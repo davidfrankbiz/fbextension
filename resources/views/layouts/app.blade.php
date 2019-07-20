@@ -18,7 +18,7 @@
     </style>
 
     <style></style><!-- Load CSS & WebFonts Main Function-->
-    <link rel="stylesheet" href="{{ secure_asset('users/grid.css') }}">  
+    <link rel="stylesheet" href="{{ secure_asset('users/grid.css') }}">
     <link rel="stylesheet" href="{{ secure_asset('users/custom.css') }}">
     <link rel="stylesheet" href="{{ secure_asset('users/min.css') }}">
     <link rel="stylesheet" href="{{ secure_asset('users/header.min.css') }}">
@@ -223,35 +223,29 @@
                 s.src = '//static.getclicky.com/js';
                 ( document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0] ).appendChild( s );
             })();
-            $('#submit_btn_apply').click(function(e){
-                e.preventDefault();
 
-                  
-                var form = $("#myForm");                
-                $.ajax({
-                        type:"POST",
-                        url:form.attr("action"),
-                        data:$("#myForm input").serialize(),//only input
-                        success: function(data){
-                            if(data.errors){
-                            jQuery.each(data.errors, function(key, value){
-                            jQuery('.alert-danger').show();
-                            jQuery('.alert-danger').append('<p>'+value+'</p>');
-                        }); 
-                        }else{
-
-                           console.log(data.success);
-
-                            location.reload();
-                            ///localStorage.setItem("login_id", login_id);
-                        }
-                       }
-                });
-            });
-
-
-
-
+            // $('#submit_btn_apply').click(function(e){
+            //     e.preventDefault();
+            //     var form = $("#myForm");
+            //     $.ajax({
+            //         type:"POST",
+            //         url:form.attr("action"),
+            //         data:$("#myForm input").serialize(), //only input
+            //         success: function(data){
+            //             console.log(data);
+            //             if(data.errors){
+            //                     jQuery.each(data.errors, function(key, value){
+            //                     jQuery('.alert-danger').show();
+            //                     jQuery('.alert-danger').append('<p>'+value+'</p>');
+            //                  });
+            //             }else{
+            //                console.log(data.success);
+            //                // localStorage.setItem("login_id", login_id);
+            //                // location.reload();
+            //             }
+            //        }
+            //     });
+            // });
 
     </script>
     <noscript>

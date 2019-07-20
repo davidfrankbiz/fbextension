@@ -80,8 +80,8 @@ class RegisterController extends Controller
 
     public function registeruser(Request $request)
     {
-      
-  
+
+
 
        $validator = Validator::make($request->all(), [
            'name' => ['required', 'string', 'max:255'],
@@ -99,27 +99,19 @@ class RegisterController extends Controller
             $request['status'] = 0;
 
             $request['phone'] = '+'.$request['code'].$request['phone'];
-
-          
-           
-            
                 $data = $this->guard()->login(User::create($request->all()));
                 $user = User::where('email', $request['email'])->first();
                 User::where('email',$request['email'])->update(['live' => 1]);
-
                 $datanew['email'] = $request['email'];
+//                Mail::send('emails.email', ['email'=>$datanew['email'] , 'name' =>$request['name'],'password'=>$pass], function ($message) use ($datanew) {
+//                    $message->subject("Welcome to site name");
+//                    $message->to($datanew['email']);
+//                });
+//               $this->sendSms($request['phone']);
 
-        Mail::send('emails.email', ['email'=>$datanew['email'] , 'name' =>$request['name'],'password'=>$pass], function ($message) use ($datanew) {         
-         $message->subject("Welcome to site name");
-         $message->to($datanew['email']);
-        });
-
-                        $this->sendSms($request['phone']);
-
-
-                return response()->json(['id'=> $user['id'] , 'status' => $user['status']]);     
-                return redirect($this->redirectPath());      
-               }
+              return response()->json(['id'=> $user['id'] , 'status' => $user['status']]);
+//            return redirect($this->redirectPath());
+       }
 
     }
 

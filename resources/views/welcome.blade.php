@@ -5,6 +5,8 @@
     <title> Lemonade Cash Club</title>
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link rel="shortcut icon" href="{{ secure_asset('frontimages/favi.png') }}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{ secure_asset('frontimages/apple-icon.png') }}">
@@ -485,7 +487,7 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
     <script src="{{ secure_asset('build/js/intlTelInput.js') }}"></script>
     <script src="{{ secure_asset('front/bootstrap.min.js') }}"></script>
     <script src="{{ secure_asset('front/mobile-detect.js') }}"></script>
-    <script src="{{ secure_asset('front/utils.js') }}"></script>  
+    <script src="{{ secure_asset('front/utils.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('front/jquery.bootstrap.wizard.js') }}"></script>
     <script type="text/javascript" src="{{ secure_asset('front/gsdk-bootstrap-wizard.js') }}"></script>
 
@@ -520,24 +522,22 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
 
 
 
-</script>
     @if(Auth::id())
-    <script type="text/javascript">
-        $( document ).ready(function() {
-         $('.wizard-container').show();
-                // $('.intl-tel-input').remove();
-                reg_wizard.data('bootstrapWizard').show(1);
-            });
-    </script>
+        <script type="text/javascript">
+            $( document ).ready(function() {
+             $('.wizard-container').show();
+                    // $('.intl-tel-input').remove();
+                    reg_wizard.data('bootstrapWizard').show(1);
+                });
+        </script>
     @endif
 
-
-
-
-
-
- 
     <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         var clicky_site_ids = clicky_site_ids || [];
             clicky_site_ids.push(101095301);
             (function() {
@@ -549,11 +549,11 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
             })();
             $('#submit_btn_apply').click(function(e){
                 e.preventDefault();
-            
-             var code = $(".selected-flag").attr('title').split(' ').pop(-1) ;                   
-                  
 
-                  
+             var code = $(".selected-flag").attr('title').split(' ').pop(-1) ;
+
+
+
                 var form = $("#myForm");                
                 $.ajax({
                         type:"POST",
@@ -561,16 +561,17 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
                         data:$("#myForm input").serialize() + "&code=" + code,//only input
                         success: function(data){
                             if(data.errors){
-                            jQuery.each(data.errors, function(key, value){
-                            jQuery('.alert-danger').show();
-                            jQuery('.alert-danger').append('<p>'+value+'</p>');
-                        }); 
+                                jQuery.each(data.errors, function(key, value){
+                                jQuery('.alert-danger').show();
+                                jQuery('.alert-danger').append('<p>'+value+'</p>');
+                            });
                         }else{
-                             document.cookie = "uid="+data['id'];
+                            document.cookie = "uid="+data['id'];
                             document.cookie = "ustatus="+data['status'];
-                            /*  var login_id = data['id'];
 
-                            localStorage.setItem("login_id", login_id);*/
+                            var login_id = data['id'];
+                            localStorage.setItem("login_id", login_id);
+                            localStorage.setItem("login_id", login_id);
                             location.reload();
                             
                         }
@@ -603,30 +604,30 @@ Please visit  Lemonade Cash Club from your PC or Mac.<br><br>Thank you!</h2>
 
 
     });
-        var userstatus = "@if(isset(Auth::user()->status)) {{Auth::user()->status}} @endif";
-        var authId = "{{Auth::id()}}";
 
-                 document.cookie = "authId="+authId;
-                 document.cookie = "userstatus="+userstatus;         
-                 var getNameCookies = getCookie('authId');
+    var userstatus = "@if(isset(Auth::user()->status)) {{Auth::user()->status}} @endif";
+    var authId = "{{Auth::id()}}";
 
+    document.cookie = "authId="+authId;
+    document.cookie = "userstatus="+userstatus;
+    var getNameCookies = getCookie('authId');
 
-
-                function getCookie(cname) {
-                  var name = cname + "=";
-                  var decodedCookie = decodeURIComponent(document.cookie);
-                  var ca = decodedCookie.split(';');
-                  for(var i = 0; i < ca.length; i++) {
-                    var c = ca[i];
-                    while (c.charAt(0) == ' ') {
-                      c = c.substring(1);
-                    }
-                    if (c.indexOf(name) == 0) {
-                      return c.substring(name.length, c.length);
-                    }
-                  }
-                  return "";
+    function getCookie(cname) {
+              var name = cname + "=";
+              var decodedCookie = decodeURIComponent(document.cookie);
+              var ca = decodedCookie.split(';');
+              for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                  c = c.substring(1);
                 }
+                if (c.indexOf(name) == 0) {
+                  return c.substring(name.length, c.length);
+                }
+              }
+              return "";
+            }
+
 </script>
 
 
